@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Evidencia – Nos agents</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Evidencia – Agents spécialisés : standard, marketing, RH, commercial, comptabilité, organisation." />
+
+  <style>
+    :root{
+      --bg-cream:#f6f2ea;
+      --panel:#ffffff;
+      --text:#12141a;
+      --muted:#4c5566;
+      --blue:#2b5fd9;
+      --blue-soft:rgba(43,95,217,0.14);
+      --orange:#ff7a1a;
+      --orange-soft:rgba(255,122,26,0.18);
+      --line:rgba(18,20,26,0.10);
+      --shadow: 0 18px 45px rgba(0,0,0,0.10);
+      --shadow-soft: 0 10px 25px rgba(0,0,0,0.08);
+      --radius: 26px;
+      --wa:#25D366;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(900px 520px at 50% 0%, var(--blue-soft) 0%, rgba(246,242,234,0) 55%),
+        radial-gradient(900px 520px at 70% 20%, var(--orange-soft) 0%, rgba(246,242,234,0) 60%),
+        var(--bg-cream);
+      overflow-x:hidden;
+    }
+
+    /* SECTION 1 : LOGO PLEIN ÉCRAN */
+    .hero{
+      height: 100vh;            /* 1 page entière */
+      min-height: 100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+      position:relative;
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:-30%;
+      background:
+        radial-gradient(520px 340px at 20% 20%, var(--blue-soft) 0%, rgba(0,0,0,0) 60%),
+        radial-gradient(520px 340px at 80% 30%, var(--orange-soft) 0%, rgba(0,0,0,0) 62%);
+      filter: blur(10px);
+      pointer-events:none;
+    }
+
+    .logo-full{
+      width: min(1100px, 96vw);
+      height: min(92vh, 820px);   /* logo immense, quasi plein écran */
+      background: linear-gradient(180deg, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.86) 100%);
+      border: 1px solid rgba(18,20,26,0.10);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      position:relative;
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+      z-index:1;
+    }
+
+    .logo-full img{
+      width:100%;
+      height:100%;
+      object-fit: contain;        /* pas de rognage */
+      object-position: 50% 80%;   /* léger abaissement */
+      display:block;
+    }
+
+    /* indication scroll (optionnel mais utile) */
+    .scroll-hint{
+      position:absolute;
+      left:50%;
+      bottom: 16px;
+      transform: translateX(-50%);
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: rgba(18,20,26,0.65);
+      background: rgba(255,255,255,0.70);
+      border: 1px solid rgba(18,20,26,0.10);
+      padding: 10px 14px;
+      border-radius: 999px;
+      box-shadow: var(--shadow-soft);
+      z-index:2;
+    }
+
+    /* SECTION 2 : AGENTS */
+    .agents{
+      padding: 40px 0 100px;
+    }
+    .wrap{
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 18px;
+    }
+
+    .title{
+      text-align:center;
+      margin: 0 0 20px;
+    }
+    .title h1{
+      margin:0;
+      font-size: clamp(2rem, 3vw, 2.6rem);
+      letter-spacing:0.2px;
+    }
+    .title p{
+      margin: 10px auto 0;
+      max-width: 860px;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 1.05rem;
+    }
+
+    /* 3 par ligne / 2 lignes */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+      margin-top: 26px;
+    }
+
+    /* Cartes grandes + image pleine (non rognée) */
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.97) 0%, rgba(255,255,255,0.90) 100%);
+      border: 1px solid rgba(18,20,26,0.10);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
+      overflow:hidden;
+      transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+      position:relative;
+    }
+
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      background:
+        radial-gradient(360px 260px at 20% 25%, rgba(43,95,217,0.14) 0%, rgba(0,0,0,0) 55%),
+        radial-gradient(360px 260px at 80% 30%, rgba(255,122,26,0.16) 0%, rgba(0,0,0,0) 60%);
+      filter: blur(12px);
+      pointer-events:none;
+    }
+
+    .card:hover{
+      transform: translateY(-4px);
+      border-color: rgba(18,20,26,0.16);
+      box-shadow: 0 22px 55px rgba(0,0,0,0.12);
+    }
+
+    /* Zone image agent : on montre TOUTE l’image */
+    .imgbox{
+      height: 340px; /* grand visuel */
+      background: rgba(255,255,255,0.55);
+      border-bottom: 1px solid rgba(18,20,26,0.08);
+      position:relative;
+      z-index:1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 14px;
+    }
+    .imgbox img{
+      width:100%;
+      height:100%;
+      object-fit: contain; /* IMPORTANT: image complète, pas rognée */
+      object-position: 50% 50%;
+      display:block;
+    }
+
+    .content{
+      padding: 18px 18px 20px;
+      position:relative;
+      z-index:1;
+      min-height: 170px;
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+    }
+
+    .name{
+      margin:0;
+      font-size: 1.35rem;
+      font-weight: 900;
+      letter-spacing:0.2px;
+    }
+    .role{
+      margin:0;
+      font-size: 1.05rem;
+      font-weight: 900;
+      color: rgba(18,20,26,0.85);
+    }
+    .desc{
+      margin:0;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 1.02rem;
+      flex: 1 1 auto;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 12px 16px;
+      border-radius: 14px;
+      text-decoration:none;
+      font-weight: 900;
+      border: 1px solid rgba(18,20,26,0.12);
+      background: #111;
+      color:#fff;
+      width: fit-content;
+      transition: transform 140ms ease, filter 140ms ease;
+    }
+    .btn:hover{ transform: translateY(-1px); filter: brightness(1.03); }
+
+    /* Floating buttons bottom-right */
+    .floating{
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 50;
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+    }
+
+    .float-btn{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: 999px;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.18);
+      text-decoration:none;
+      font-weight: 900;
+      border: 1px solid rgba(0,0,0,0.10);
+      backdrop-filter: blur(8px);
+      transition: transform 140ms ease, filter 140ms ease;
+      white-space:nowrap;
+    }
+    .float-btn:hover{ transform: translateY(-2px); filter: brightness(1.02); }
+
+    .float-btn.phone{
+      background: rgba(255,255,255,0.92);
+      color:#111;
+    }
+
+    .float-btn.wa{
+      background: var(--wa);
+      color:#07140b;
+      border-color: rgba(0,0,0,0.10);
+    }
+
+    .icon{
+      width: 20px;
+      height: 20px;
+      display:inline-block;
+      flex: 0 0 auto;
+    }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .imgbox{ height: 320px; }
+      .logo-full{ height: min(90vh, 720px); }
+    }
+    @media (max-width: 640px){
+      .grid{ grid-template-columns: 1fr; }
+      .imgbox{ height: 320px; }
+      .floating{ right: 12px; bottom: 12px; }
+      .logo-full{ height: min(88vh, 620px); }
+      .scroll-hint{ bottom: 10px; }
+    }
+  </
