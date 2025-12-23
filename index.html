@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Evidencia – Nos agents</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    :root{
+      --bg-cream:#f6f2ea;
+      --text:#111;
+      --muted:#4c5566;
+      --shadow: 0 18px 45px rgba(0,0,0,0.14);
+      --shadow-soft: 0 10px 25px rgba(0,0,0,0.10);
+      --radius: 26px;
+      --wa:#25D366;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: var(--bg-cream);
+      color: var(--text);
+      overflow-x:hidden;
+    }
+
+    /* ======================
+       PAGE 1 : LOGO PLEIN ÉCRAN
+       => cover = aucune bande
+       ====================== */
+    .hero{
+      height:100vh;
+      width:100vw;
+      position:relative;
+      overflow:hidden;
+
+      background-image:url("images/logo.png");
+      background-repeat:no-repeat;
+      background-size:cover;              /* IMPORTANT: plein écran */
+      background-position:center 62%;     /* descendu pour éviter de couper les têtes */
+      background-color: var(--bg-cream);
+    }
+
+    /* voile léger premium (optionnel) */
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: radial-gradient(900px 520px at 70% 25%, rgba(255,122,26,0.12) 0%, rgba(0,0,0,0) 60%),
+                  radial-gradient(900px 520px at 40% 10%, rgba(43,95,217,0.10) 0%, rgba(0,0,0,0) 55%);
+      pointer-events:none;
+    }
+
+    .scroll-hint{
+      position:absolute;
+      left:50%;
+      bottom: 14px;
+      transform: translateX(-50%);
+      font-weight: 900;
+      font-size: 0.95rem;
+      color: rgba(17,17,17,0.78);
+      background: rgba(255,255,255,0.80);
+      border: 1px solid rgba(0,0,0,0.10);
+      padding: 10px 14px;
+      border-radius: 999px;
+      box-shadow: var(--shadow-soft);
+      z-index:2;
+      user-select:none;
+      white-space:nowrap;
+    }
+
+    /* ======================
+       PAGE 2 : AGENTS
+       cartes full-image (sans blanc)
+       ====================== */
+    .agents{
+      padding: 70px 18px 40px;
+      background: var(--bg-cream);
+    }
+    .wrap{
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .title{
+      text-align:center;
+      margin-bottom: 30px;
+    }
+    .title h1{
+      margin:0;
+      font-size: clamp(2rem, 3vw, 2.6rem);
+      letter-spacing: 0.2px;
+    }
+    .title p{
+      margin: 10px auto 0;
+      max-width: 860px;
+      color: var(--muted);
+      font-size: 1.06rem;
+      line-height: 1.6;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 26px;
+      padding-bottom: 30px;
+    }
+
+    /* Carte = image plein cadre */
+    .card{
+      border-radius: var(--radius);
+      overflow:hidden;
+      box-shadow: var(--shadow);
+      position:relative;
+      height: 520px;                 /* grand format */
+      background: #000;
+      transform: translateY(0);
+      transition: transform 160ms ease, box-shadow 160ms ease;
+    }
+    .card:hover{
+      transform: translateY(-6px);
+      box-shadow: 0 28px 70px rgba(0,0,0,0.18);
+    }
+
+    /* Image en background pour supprimer tout blanc/padding */
+    .card .bg{
+      position:absolute;
+      inset:0;
+      background-repeat:no-repeat;
+      background-size: cover;        /* plein cadre (plus de blanc autour) */
+      background-position: center 25%;
+      filter: saturate(1.02);
+      transform: scale(1.01);
+    }
+
+    /* Overlay (dégradé lisibilité) */
+    .card::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,0.00) 35%, rgba(0,0,0,0.35) 70%, rgba(0,0,0,0.55) 100%);
+      pointer-events:none;
+    }
+
+    /* Bloc texte en bas */
+    .info{
+      position:absolute;
+      left: 16px;
+      right: 16px;
+      bottom: 16px;
+      z-index:2;
+      padding: 14px 14px 12px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.88); /* crème/blanc premium */
+      border: 1px solid rgba(0,0,0,0.10);
+      backdrop-filter: blur(6px);
+    }
+
+    .name{
+      margin:0;
+      font-size: 1.35rem;
+      font-weight: 1000;
+      color:#111;
+    }
+    .role{
+      margin: 4px 0 10px;
+      font-weight: 900;
+      color:#222;
+    }
+    .desc{
+      margin:0;
+      color:#444;
+      line-height:1.45;
+      font-weight: 650;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      margin-top: 12px;
+      padding: 11px 16px;
+      border-radius: 14px;
+      text-decoration:none;
+      font-weight: 950;
+      background: #111;
+      color:#fff;
+      border: 1px solid rgba(0,0,0,0.15);
+    }
+
+    /* ======================
+       FLOATING CONTACT
+       ====================== */
+    .floating{
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 50;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-end;
+      gap: 10px;
+    }
+
+    /* TEXTE SIMPLE (pas de bulle) */
+    .floating .label{
+      font-weight: 950;
+      color: rgba(17,17,17,0.88);
+      font-size: 0.98rem;
+      text-align:right;
+      padding: 0;
+      margin: 0 4px 2px 0;
+      background: transparent;  /* pas de bulle */
+      box-shadow: none;         /* pas de bulle */
+      border: none;             /* pas de bulle */
+    }
+
+    .float-btn{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: 999px;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.18);
+      text-decoration:none;
+      font-weight: 950;
+      border: 1px solid rgba(0,0,0,0.10);
+      backdrop-filter: blur(8px);
+      transition: transform 140ms ease, filter 140ms ease;
+      white-space:nowrap;
+    }
+    .float-btn:hover{ transform: translateY(-2px); filter: brightness(1.02); }
+
+    .float-btn.phone{
+      background: rgba(255,255,255,0.95);
+      color:#111;
+    }
+    .float-btn.wa{
+      background: var(--wa);
+      color:#0b2d18;
+    }
+
+    .icon{
+      width: 20px;
+      height: 20px;
+      display:inline-block;
+      flex: 0 0 auto;
+    }
+
+    footer{
+      text-align:center;
+      padding: 26px 10px 55px;
+      color:#777;
+      font-weight: 800;
+    }
+
+    @media (max-width: 1020px){
+      .grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .card{ height: 520px; }
+    }
+    @media (max-width: 640px){
+      .grid{ grid-template-columns: 1fr; }
+      .card{ height: 540px; }
+      .floating{ right: 12px; bottom: 12px; }
+      .hero{ background-position:center 60%; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- PAGE 1 -->
+  <section class="hero" aria-label="Accueil">
+    <div class="scroll-hint">Faites défiler pour découvrir nos agents ↓</div>
+  </section>
+
+  <!-- PAGE 2 -->
+  <section class="agents" id="agents" aria-label="Nos agents">
+    <div class="wrap">
+      <div class="title">
+        <h1>Nos agents</h1>
+        <p>Automatisez vos tâches et gagnez du temps avec Evidencia.</p>
+      </div>
+
+      <div class="grid">
+
+        <article class="card">
+          <div class="bg" style="background-image:url('images/kim.PNG');"></div>
+          <div class="info">
+            <p class="name">Kim</p>
+            <p class="role">Standardiste</p>
+            <p class="desc">Répond aux appels, qualifie les demandes et oriente vos clients.</p>
+            <a class="btn" href="agents/kim.html">En savoir plus</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="bg" style="background-image:url('images/lucas.PNG');"></div>
+          <div class="info">
+            <p class="name">Lucas</p>
+            <p class="role">Marketing</p>
+            <p class="desc">Crée vos contenus, respecte votre charte et publie sur vos réseaux.</p>
+            <a class="btn" href="agents/lucas.html">En savoir plus</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="bg" style="background-image:url('images/marc.PNG');"></div>
+          <div class="info">
+            <p class="name">Marc</p>
+            <p class="role">Organisation</p>
+            <p class="desc">Priorités, agenda, emails, tâches : un vrai copilote au quotidien.</p>
+            <a class="btn" href="agents/marc.html">En savoir plus</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="bg" style="background-image:url('images/max.PNG');"></div>
+          <div class="info">
+            <p class="name">Max</p>
+            <p class="role">Commercial</p>
+            <p class="desc">Prospection, relances et suivi des opportunités.</p>
+            <a class="btn" href="agents/max.html">En savoir plus</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="bg" style="background-image:url('images/rose.PNG');"></div>
+          <div class="info">
+            <p class="name">Rose</p>
+            <p class="role">Comptable</p>
+            <p class="desc">Factures, classement, reporting et organisation financière.</p>
+            <a class="btn" href="agents/rose.html">En savoir plus</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="bg" style="background-image:url('images/emma.PNG');"></div>
+          <div class="info">
+            <p class="name">Emma</p>
+            <p class="role">RH</p>
+            <p class="desc">Tri, préqualification, réponses RH et assistance recrutement.</p>
+            <a class="btn" href="agents/emma.html">En savoir plus</a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FLOATING CTA -->
+  <div class="floating">
+    <div class="label">Demandez une démo gratuite (env. 15 min)</div>
+
+    <a class="float-btn phone" href="tel:+33665752635" aria-label="Appeler 06 65 75 26 35">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="#111" d="M6.6 10.8c1.7 3.3 3.3 4.9 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.2 1.2.4 2.5.7 3.8.7.6 0 1 .4 1 1V21c0 .6-.4 1-1 1C10.1 22 2 13.9 2 3c0-.6.4-1 1-1h3.6c.6 0 1 .4 1 1 0 1.3.2 2.6.7 3.8.1.4 0 .8-.2 1.1L6.6 10.8z"/>
+      </svg>
+      06 65 75 26 35
+    </a>
+
+    <a class="float-btn wa"
+       href="https://wa.me/33665752635?text=Bonjour%2C%20je%20souhaiterais%20avoir%20une%20d%C3%A9monstration%20d%E2%80%99Evidencia%20et%20de%20vos%20agents%20IA."
+       target="_blank"
+       rel="noopener"
+       aria-label="WhatsApp – Demande de démo">
+
+      <!-- WhatsApp icon -->
+      <svg class="icon" viewBox="0 0 32 32" aria-hidden="true">
+        <path fill="#0b2d18" d="M19.11 17.64c-.27-.14-1.58-.78-1.83-.87-.25-.09-.43-.14-.61.14-.18.27-.7.87-.86 1.05-.16.18-.31.2-.58.07-.27-.14-1.12-.41-2.14-1.31-.79-.7-1.32-1.56-1.48-1.83-.16-.27-.02-.42.12-.56.12-.12.27-.31.41-.46.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.48-.84-2.03-.22-.53-.45-.46-.61-.47h-.52c-.18 0-.48.07-.73.34-.25.27-.96.94-.96 2.29 0 1.35.98 2.65 1.12 2.83.14.18 1.93 2.95 4.68 4.13.65.28 1.16.45 1.55.58.65.21 1.24.18 1.7.11.52-.08 1.58-.65 1.8-1.28.22-.63.22-1.17.16-1.28-.07-.11-.25-.18-.52-.32z"/>
+        <path fill="#0b2d18" d="M26.62 5.38C23.78 2.54 20.01 1 16 1 7.73 1 1 7.73 1 16c0 2.64.69 5.21 2 7.48L1 31l7.67-1.99A14.93 14.93 0 0 0 16 31c8.27 0 15-6.73 15-15 0-4.01-1.54-7.78-4.38-10.62zM16 29.02c-2.35 0-4.66-.63-6.68-1.82l-.48-.28-4.55 1.18 1.22-4.43-.31-.5A12.95 12.95 0 0 1 3.02 16C3.02 8.83 8.83 3.02 16 3.02S28.98 8.83 28.98 16 23.17 29.02 16 29.02z"/>
+      </svg>
+
+      WhatsApp
+    </a>
+  </div>
+
+  <footer>© 2025 Evidencia — Tous droits réservés</footer>
+
+</body>
+</html>
