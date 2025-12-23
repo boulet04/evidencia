@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Evidencia – Nos agents</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    :root{
+      --bg:#f6f2ea;
+      --shadow: 0 18px 45px rgba(0,0,0,.14);
+      --wa:#25D366;
+
+      /* IMPORTANT: si ton logo PNG a beaucoup de “vide” autour,
+         monte ce zoom à 1.20 / 1.25 / 1.30 */
+      --heroZoom: 1.22;
+      --heroY: 58%; /* descend/monte pour préserver les têtes : 55% à 70% */
+    }
+
+    *{box-sizing:border-box;}
+    html,body{height:100%; margin:0;}
+    body{
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: var(--bg);
+      overflow-x:hidden;
+    }
+
+    /* =========================
+       HERO LOGO : VRAI PLEIN ÉCRAN
+       ========================= */
+    .hero{
+      height:100vh;
+      width:100vw;
+      position:relative;
+      overflow:hidden;
+      background: var(--bg);
+    }
+
+    /* On met le logo en calque, zoomable, plein écran */
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background-image:url("images/logo.png");
+      background-repeat:no-repeat;
+      background-position:center var(--heroY);
+      background-size:cover; /* rempli tout l'écran */
+      transform: scale(var(--heroZoom)); /* enlève les bords si ton PNG a du vide */
+      transform-origin:center;
+    }
+
+    /* léger halo premium */
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(900px 520px at 70% 25%, rgba(255,122,26,0.10) 0%, rgba(0,0,0,0) 60%),
+        radial-gradient(900px 520px at 40% 10%, rgba(43,95,217,0.08) 0%, rgba(0,0,0,0) 55%);
+      pointer-events:none;
+    }
+
+    .scroll-hint{
+      position:absolute;
+      left:50%;
+      bottom:14px;
+      transform:translateX(-50%);
+      padding:10px 14px;
+      border-radius:999px;
+      background: rgba(255,255,255,.82);
+      border:1px solid rgba(0,0,0,.10);
+      box-shadow: 0 10px 25px rgba(0,0,0,.10);
+      font-weight:900;
+      color: rgba(17,17,17,.78);
+      z-index:2;
+      white-space:nowrap;
+      user-select:none;
+    }
+
+    /* =========================
+       AGENTS : images plein cadre (pas de blanc)
+       ========================= */
+    .agents{
+      padding: 70px 18px 30px;
+      background: var(--bg);
+    }
+    .wrap{max-width:1280px; margin:0 auto;}
+    .title{text-align:center; margin-bottom:28px;}
+    .title h1{margin:0; font-size:clamp(2rem,3vw,2.6rem);}
+    .title p{margin:10px auto 0; max-width:850px; color:#4c5566; font-size:1.06rem; line-height:1.6;}
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap:26px;
+      padding-bottom:20px;
+    }
+
+    .card{
+      position:relative;
+      height: 540px;
+      border-radius: 26px;
+      overflow:hidden;
+      box-shadow: var(--shadow);
+      background:#000;
+      transition: transform .16s ease, box-shadow .16s ease;
+    }
+    .card:hover{
+      transform: translateY(-6px);
+      box-shadow: 0 28px 70px rgba(0,0,0,.18);
+    }
+
+    /* Image agent plein cadre => plus de “blanc autour” */
+    .card .bg{
+      position:absolute;
+      inset:0;
+      background-repeat:no-repeat;
+      background-size: cover;
+      background-position:center 20%;
+      filter:saturate(1.02);
+    }
+
+    /* Overlay lisibilité */
+    .card::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,.35) 72%, rgba(0,0,0,.55) 100%);
+      pointer-events:none;
+    }
+
+    .info{
+      position:absolute;
+      left:16px; right:16px; bottom:16px;
+      z-index:2;
+      padding:14px 14px 12px;
+      border-radius:18px;
+      background: rgba(255,255,255,.88);
+      border:1px solid rgba(0,0,0,.10);
+      backdrop-filter: blur(6px);
+      text-align:left;
+    }
+
+    .name{margin:0; font-size:1.38rem; font-weight:1000;}
+    .role{margin:4px 0 10px; font-weight:950; color:#222;}
+    .desc{margin:0; color:#444; font-weight:650; line-height:1.45;}
+
+    .btn{
+      display:inline-flex;
+      margin-top:12px;
+      padding:11px 16px;
+      border-radius:14px;
+      background:#111;
+      color:#fff;
+      text-decoration:none;
+      font-weight:950;
+      border:1px solid rgba(0,0,0,.15);
+    }
+
+    /* =========================
+       FLOATING: PAS DE BULLE
+       ========================= */
+    .floating{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      z-index:50;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-end;
+      gap:10px;
+    }
+
+    /* JUSTE UN TEXTE (aucune bulle) */
+    .floating .label{
+      font-weight:950;
+      color: rgba(17,17,17,.88);
+      font-size: .98rem;
+      margin:0 4px 2px 0;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      padding:0;
+      text-align:right;
+    }
+
+    .float-btn{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:12px 14px;
+      border-radius:999px;
+      box-shadow: 0 18px 40px rgba(0,0,0,.18);
+      text-decoration:none;
+      font-weight:950;
+      border:1px solid rgba(0,0,0,.10);
+      backdrop-filter: blur(8px);
+      white-space:nowrap;
+    }
+    .phone{background: rgba(255,255,255,.95); color:#111;}
+    .wa{background: var(--wa); color:#0b2d18;}
+
+    footer{
+      text-align:center;
+      padding: 26px 10px 55px;
+      color:#777;
+      font-weight:800;
+      background: var(--bg);
+    }
+
+    @media (max-width: 1020px){
+      .grid{grid-template-columns: repeat(2, minmax(0,1fr));}
+      .card{height:540px;}
+    }
+    @media (max-width: 640px){
+      .grid{grid-template-columns: 1fr;}
+      .card{height:560px;}
+      .floating{right:12px; bottom:12px;}
+    }
+  </style>
+</head>
+
+<body>
+
+  <section class="hero">
+    <div class="scroll-hint">Faites défiler pour découvrir nos agents ↓</div>
+  </section>
+
+  <section class="agents" id="agents">
+    <div class="wrap">
+      <div class="title">
+        <h1>Nos agents</h1>
+        <p>Automatisez vos tâches et gagnez du temps avec Evidencia.</p>
+      </div>
+
+      <div class="grid">
+
+        <article class="card">
+          <div class="bg" style="background-image:url('images/kim.PNG');"></div>
+          <div class="info">
+            <p class="name">Kim</p>
+            <p class="role">Standardiste</p>
+            <p class="desc">Répond aux appels, qualifie les demandes et oriente vos clients.</p>
+            <a class="btn" href="agents/kim.html">En savoir plus</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="bg" style="background-image:url('images/lucas.PNG');"></div>
+          <div class="info">
+            <p class="name">Lucas</p>
+            <p class="role">Marketing</p>
+            <p class="desc">Crée vos contenus, respecte votre charte et publie sur vos réseaux.</p>
+            <a class="btn" href="agents/lucas.html">En savoir plus</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="bg" style="background-image:url('images/marc.PNG');"></div>
+          <div class="info">
+            <p class="name">Marc</p>
+            <p class="role">Organisation</p>
+            <p class="desc">Priorités, agenda, emails, tâches : un vrai copilote au quotidien.</p>
+            <a class="btn" href="agents/marc.html">En savoir plus</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="bg" style="background-image:url('images/max.PNG');"></div>
+          <div class="info">
+            <p class="name">Max</p>
+            <p class="role">Commercial</p>
+            <p class="desc">Prospection, relances et suivi des opportunités.</p>
+            <a class="btn" href="agents/max.html">En savoir plus</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="bg" style="background-image:url('images/rose.PNG');"></div>
+          <div class="info">
+            <p class="name">Rose</p>
+            <p class="role">Comptable</p>
+            <p class="desc">Factures, classement, reporting et organisation financière.</p>
+            <a class="btn" href="agents/rose.html">En savoir plus</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="bg" style="background-image:url('images/emma.PNG');"></div>
+          <div class="info">
+            <p class="name">Emma</p>
+            <p class="role">RH</p>
+            <p class="desc">Tri, préqualification, réponses RH et assistance recrutement.</p>
+            <a class="btn" href="agents/emma.html">En savoir plus</a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="floating">
+    <div class="label">Demandez une démo gratuite (env. 15 min)</div>
+
+    <a class="float-btn phone" href="tel:+33665752635">📞 06 65 75 26 35</a>
+
+    <a class="float-btn wa"
+       href="https://wa.me/33665752635?text=Bonjour%2C%20je%20souhaiterais%20avoir%20une%20d%C3%A9monstration%20d%E2%80%99Evidencia%20et%20de%20vos%20agents%20IA."
+       target="_blank" rel="noopener">WhatsApp</a>
+  </div>
+
+  <footer>© 2025 Evidencia — Tous droits réservés</footer>
+
+</body>
+</html>
