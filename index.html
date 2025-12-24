@@ -22,6 +22,9 @@
       --glass2:rgba(255,255,255,.10);
 
       --wa:#25D366;
+
+      /* ===== Réglage “où on rogne” du HERO (plus petit = coupe plus en bas) ===== */
+      --heroY: 6%;
     }
 
     *{box-sizing:border-box}
@@ -34,25 +37,46 @@
       overflow-x:hidden;
     }
 
-    /* ===== HERO PLEIN ÉCRAN (PLEINE PAGE) ===== */
+    /* ===== HERO PLEIN ÉCRAN (ROGNAGE PLUTÔT EN BAS) ===== */
     .hero{
       height:100vh;
       width:100vw;
-      position:relative;
+      display:flex;
+      align-items:stretch;
+      justify-content:stretch;
+      background:
+        radial-gradient(900px 620px at 55% 18%, rgba(80,120,255,.16), rgba(0,0,0,0) 60%),
+        radial-gradient(900px 620px at 78% 22%, rgba(255,140,40,.18), rgba(0,0,0,0) 62%),
+        linear-gradient(135deg,var(--bg1),var(--bg2));
       overflow:hidden;
-
-      /* LOGO EN FOND PLEIN ÉCRAN */
-      background-image: url("images/logo.png");
-      background-size: cover;          /* plein écran garanti */
-      background-position: 50% -2%;
-      background-repeat: no-repeat;
-
-      /* ton ambiance sombre + halos */
-      background-color: var(--bg1);
+      position:relative;
     }
 
-    /* On cache l’image HTML du hero si jamais elle reste dans le DOM */
-    .hero img{ display:none !important; }
+    /* Image en “cover” = plein écran. Ancrée vers le haut => rogne en bas. */
+    .hero picture, .hero img{
+      width:100%;
+      height:100%;
+      display:block;
+    }
+    .hero img{
+      object-fit:cover;
+      object-position:50% var(--heroY);
+      filter:drop-shadow(0 22px 55px rgba(0,0,0,.55));
+    }
+
+    /* Petit voile haut/bas pour style + lisibilité */
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(to bottom,
+          rgba(0,0,0,.45) 0%,
+          rgba(0,0,0,.00) 20%,
+          rgba(0,0,0,.00) 70%,
+          rgba(0,0,0,.55) 100%);
+      pointer-events:none;
+    }
 
     .scrollHint{
       position:absolute;
@@ -73,24 +97,15 @@
       z-index:2;
     }
 
-    /* ===== OPTION MOBILE (si tu veux éviter trop de coupe) =====
-       - si tu veux 100% plein écran même sur mobile -> laisse cover
-       - si tu préfères "pas de coupe" sur mobile -> passe en contain ci-dessous
-    */
+    /* ===== Ajustements mobile : on remonte un poil moins (évite de trop couper le bas) ===== */
     @media (max-width: 768px){
+      :root{ --heroY: 10%; }
+      .hero{ height: 100svh; } /* mieux sur mobile (barre d’adresse) */
       .scrollHint{
-        bottom:8px;
+        bottom:10px;
         font-size:12px;
         padding:8px 12px;
       }
-
-      /* Décommente si tu veux "aucune coupe" sur mobile (mais pas plein écran) */
-      /*
-      .hero{
-        background-size: contain;
-        background-color: #05060a;
-      }
-      */
     }
 
     /* ===== SECTION AGENTS ===== */
@@ -147,7 +162,7 @@
     .media{
       position:absolute;
       inset:0;
-      padding:10px 10px 155px; /* laisse de la place au texte en bas */
+      padding:10px 10px 155px;
       display:flex;
       align-items:center;
       justify-content:center;
@@ -155,9 +170,9 @@
     .media img{
       width:100%;
       height:100%;
-      object-fit:contain; /* agent entier */
+      object-fit:contain;
       display:block;
-      transform:scale(1.22); /* agrandi sans rognage */
+      transform:scale(1.22);
       filter:drop-shadow(0 28px 52px rgba(0,0,0,.60));
     }
 
@@ -246,14 +261,8 @@
     }
     .pill svg{width:18px;height:18px;fill:currentColor}
 
-    .call{
-      background:rgba(0,0,0,.45);
-      color:var(--ink);
-    }
-    .mail{
-      background:rgba(0,0,0,.45);
-      color:var(--ink);
-    }
+    .call{ background:rgba(0,0,0,.45); color:var(--ink); }
+    .mail{ background:rgba(0,0,0,.45); color:var(--ink); }
 
     .wa{
       background:var(--wa);
@@ -276,8 +285,12 @@
 
 <body>
 
-  <!-- HERO (plein écran) -->
+  <!-- HERO (plein écran, rognage plutôt en bas) -->
   <section class="hero">
+    <picture>
+      <source media="(max-width: 768px)" srcset="images/logo_mobile_1080x1920.png">
+      <img src="images/logo_desktop_1920x1080.png" alt="Evidenc’IA">
+    </picture>
     <div class="scrollHint">Faites défiler pour découvrir nos agents ↓</div>
   </section>
 
@@ -399,6 +412,3 @@
 
 </body>
 </html>
-
-
-
