@@ -73,6 +73,25 @@
       backdrop-filter: blur(10px);
     }
 
+    /* ===== AJOUT : OPTIMISATION MOBILE DU HERO (SANS MODIFIER LE RESTE) ===== */
+    @media (max-width: 768px){
+      .hero{
+        padding:12px;
+      }
+      .hero img{
+        width:100%;
+        height:auto;          /* évite l'effet “petit au centre” */
+        max-height:92vh;      /* garde l'image entière */
+        object-fit:contain;   /* aucune coupe */
+        transform:scale(.95); /* léger dézoom mobile */
+      }
+      .scrollHint{
+        bottom:8px;
+        font-size:12px;
+        padding:8px 12px;
+      }
+    }
+
     /* ===== SECTION AGENTS ===== */
     .section{
       padding:70px 6vw 55px;
