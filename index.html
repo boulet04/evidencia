@@ -34,30 +34,26 @@
       overflow-x:hidden;
     }
 
-    /* ===== HERO PLEIN ÉCRAN (SANS ROGNER) ===== */
+    /* ===== HERO PLEIN ÉCRAN (PLEINE PAGE) ===== */
     .hero{
       height:100vh;
       width:100vw;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background:
-        radial-gradient(900px 620px at 55% 18%, rgba(80,120,255,.16), rgba(0,0,0,0) 60%),
-        radial-gradient(900px 620px at 78% 22%, rgba(255,140,40,.18), rgba(0,0,0,0) 62%),
-        linear-gradient(135deg,var(--bg1),var(--bg2));
-      overflow:hidden;
       position:relative;
-    }
-.hero img{
-  width:100%;
-  height:100%;
-  object-fit:cover;     /* remplit tout l’écran */
-  object-position:center;
-  display:block;
-  filter:drop-shadow(0 22px 55px rgba(0,0,0,.55));
-}
+      overflow:hidden;
 
+      /* LOGO EN FOND PLEIN ÉCRAN */
+      background-image: url("images/logo.png");
+      background-size: cover;          /* plein écran garanti */
+      background-position: center;     /* centré */
+      background-repeat: no-repeat;
+
+      /* ton ambiance sombre + halos */
+      background-color: var(--bg1);
     }
+
+    /* On cache l’image HTML du hero si jamais elle reste dans le DOM */
+    .hero img{ display:none !important; }
+
     .scrollHint{
       position:absolute;
       left:50%;
@@ -74,25 +70,27 @@
       user-select:none;
       font-size:13px;
       backdrop-filter: blur(10px);
+      z-index:2;
     }
 
-    /* ===== AJOUT : OPTIMISATION MOBILE DU HERO (SANS MODIFIER LE RESTE) ===== */
+    /* ===== OPTION MOBILE (si tu veux éviter trop de coupe) =====
+       - si tu veux 100% plein écran même sur mobile -> laisse cover
+       - si tu préfères "pas de coupe" sur mobile -> passe en contain ci-dessous
+    */
     @media (max-width: 768px){
-      .hero{
-        padding:12px;
-      }
-      .hero img{
-        width:100%;
-        height:auto;          /* évite l'effet “petit au centre” */
-        max-height:92vh;      /* garde l'image entière */
-        object-fit:contain;   /* aucune coupe */
-        transform:scale(.95); /* léger dézoom mobile */
-      }
       .scrollHint{
         bottom:8px;
         font-size:12px;
         padding:8px 12px;
       }
+
+      /* Décommente si tu veux "aucune coupe" sur mobile (mais pas plein écran) */
+      /*
+      .hero{
+        background-size: contain;
+        background-color: #05060a;
+      }
+      */
     }
 
     /* ===== SECTION AGENTS ===== */
@@ -278,9 +276,8 @@
 
 <body>
 
-  <!-- HERO (pleine page, sans rognage) -->
+  <!-- HERO (plein écran) -->
   <section class="hero">
-    <img src="images/logo.png" alt="Evidenc’IA">
     <div class="scrollHint">Faites défiler pour découvrir nos agents ↓</div>
   </section>
 
@@ -402,4 +399,3 @@
 
 </body>
 </html>
-
