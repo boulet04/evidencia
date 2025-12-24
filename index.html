@@ -36,19 +36,18 @@
 
     /* ===== HERO PLEIN ÉCRAN (PLEINE PAGE) ===== */
     .hero{
-      height:100vh;
-      width:100vw;
-      position:relative;
-      overflow:hidden;
+  height:100vh;
+  width:100vw;
+  position:relative;
+  overflow:hidden;
 
-      /* LOGO EN FOND PLEIN ÉCRAN */
-      background-image: url("images/logo.png");
-      background-size: cover;          /* plein écran garanti */
-      background-position: center;     /* centré */
-      background-repeat: no-repeat;
+  background-image: url("images/logo.png");
+  background-size: cover;            /* plein écran */
+  background-position: top center;   /* garde le haut, rogne en bas */
+  background-repeat: no-repeat;
+  background-color: var(--bg1);
+}
 
-      /* ton ambiance sombre + halos */
-      background-color: var(--bg1);
     }
 
     /* On cache l’image HTML du hero si jamais elle reste dans le DOM */
@@ -399,3 +398,4 @@
 
 </body>
 </html>
+
