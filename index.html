@@ -191,12 +191,12 @@
       background:rgba(255,255,255,.14);
     }
 
-    /* ===== CTA flottants ===== */
+    /* ===== CTA flottants (téléphone + mail + WhatsApp) ===== */
     .floating{
       position:fixed;
       right:18px;
       bottom:18px;
-      z-index:999;
+      z-index:9999;
       display:flex;
       flex-direction:column;
       align-items:flex-end;
@@ -207,7 +207,7 @@
       font-weight:900;
       color:rgba(238,242,255,.75);
       text-align:right;
-      max-width:240px;
+      max-width:260px;
       text-shadow:0 10px 30px rgba(0,0,0,.65);
     }
     .pill{
@@ -224,10 +224,17 @@
       backdrop-filter:blur(10px);
       white-space:nowrap;
     }
+    .pill svg{width:18px;height:18px;fill:currentColor}
+
     .call{
       background:rgba(0,0,0,.45);
       color:var(--ink);
     }
+    .mail{
+      background:rgba(0,0,0,.45);
+      color:var(--ink);
+    }
+
     .wa{
       background:var(--wa);
       color:#0b2d18;
@@ -340,10 +347,23 @@
   <div class="floating">
     <div class="label">Demandez une démo gratuite (env. 15 min)</div>
 
+    <!-- Téléphone -->
     <a class="pill call" href="tel:+33665752635" aria-label="Appeler 06 65 75 26 35">
-      📞 06 65 75 26 35
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.07 21 3 13.93 3 5a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z"/>
+      </svg>
+      06 65 75 26 35
     </a>
 
+    <!-- Email -->
+    <a class="pill mail" href="mailto:evidenciatech@gmail.com" aria-label="Envoyer un email à evidenciatech@gmail.com">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
+      </svg>
+      evidenciatech@gmail.com
+    </a>
+
+    <!-- WhatsApp -->
     <a class="pill wa"
        href="https://wa.me/33665752635?text=Bonjour%2C%20je%20souhaiterais%20une%20d%C3%A9monstration%20de%20vos%20agents%20IA."
        target="_blank" rel="noopener"
