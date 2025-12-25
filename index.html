@@ -38,18 +38,22 @@
        - background-size: cover => plein écran
        - background-position => colle le haut, rogne plutôt le bas
     */
-    .hero{
-      height:100vh;
-      width:100vw;
-      position:relative;
-      overflow:hidden;
+.hero{
+  height:100vh;
+  width:100vw;
+  position:relative;
+  overflow:hidden;
 
-      /* Desktop par défaut */
-      background-image:url("images/logopc.png");
-      background-size:cover;
-      background-repeat:no-repeat;
-      background-position:50% 12%; /* ajuste ici: plus petit => image plus haute */
-      background-color:var(--bg1);
+  background-image: url("images/logopc.png");
+  background-repeat: no-repeat;
+
+  /* CLÉ DU RÉSULTAT */
+  background-size: cover;
+  background-position: center top; /* <-- IMPORTANT */
+
+  background-color:#05060a;
+}
+
     }
 
     /* Optionnel: vignettage léger pour donner du contraste */
@@ -394,3 +398,4 @@
 
 </body>
 </html>
+
