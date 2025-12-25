@@ -227,13 +227,15 @@
       align-items:flex-end;
       gap:10px;
     }
-    .floating .label{
-      font-size:10px;
-      font-weight:900;
-      color:rgba(238,242,255,.75);
-      text-align:right;
-      max-width:260px;
-      text-shadow:0 10px 30px rgba(0,0,0,.65);
+.floating .label{
+  font-size:12px;              /* +20% environ */
+  font-weight:900;
+  color:rgba(238,242,255,.85); /* un peu plus lisible */
+  text-align:right;
+  max-width:260px;
+  line-height:1.25;
+  text-shadow:0 10px 30px rgba(0,0,0,.65);
+
     }
     .pill{
       display:flex;
@@ -277,7 +279,6 @@
 
   <!-- HERO (plein écran via background-image PC/Mobile) -->
   <section class="hero" aria-label="Evidenc’IA">
-    <div class="scrollHint">Faites défiler pour découvrir nos agents ↓</div>
   </section>
 
   <!-- AGENTS -->
@@ -398,6 +399,7 @@
 
 </body>
 </html>
+
 
 
 
