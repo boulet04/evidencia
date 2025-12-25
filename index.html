@@ -34,23 +34,33 @@
       overflow-x:hidden;
     }
 
-    /* ===== HERO PLEIN ÉCRAN (PLEINE PAGE) ===== */
-.hero{
-  height:100vh;
-  width:100vw;
-  position:relative;
-  overflow:hidden;
+    /* ===== HERO PLEIN ÉCRAN (AVEC IMAGES DÉDIÉES PC/MOBILE) =====
+       - background-size: cover => plein écran
+       - background-position => colle le haut, rogne plutôt le bas
+    */
+    .hero{
+      height:100vh;
+      width:100vw;
+      position:relative;
+      overflow:hidden;
 
-  background-image: url("images/logo.png");
-  background-size: cover;            /* plein écran */
-  background-position: top center;   /* garde le haut, rogne en bas */
-  background-repeat: no-repeat;
-  background-color: var(--bg1);
-}
+      /* Desktop par défaut */
+      background-image:url("images/logopc.png");
+      background-size:cover;
+      background-repeat:no-repeat;
+      background-position:50% 12%; /* ajuste ici: plus petit => image plus haute */
+      background-color:var(--bg1);
     }
 
-    /* On cache l’image HTML du hero si jamais elle reste dans le DOM */
-    .hero img{ display:none !important; }
+    /* Optionnel: vignettage léger pour donner du contraste */
+    .hero::after{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(1200px 800px at 50% 40%, rgba(0,0,0,0) 55%, rgba(0,0,0,.55) 100%),
+        linear-gradient(to bottom, rgba(0,0,0,.25), rgba(0,0,0,.25));
+      pointer-events:none;
+    }
 
     .scrollHint{
       position:absolute;
@@ -71,24 +81,17 @@
       z-index:2;
     }
 
-    /* ===== OPTION MOBILE (si tu veux éviter trop de coupe) =====
-       - si tu veux 100% plein écran même sur mobile -> laisse cover
-       - si tu préfères "pas de coupe" sur mobile -> passe en contain ci-dessous
-    */
+    /* ===== MOBILE: image dédiée + position optimisée ===== */
     @media (max-width: 768px){
+      .hero{
+        background-image:url("images/logomobile.png");
+        background-position:50% 10%; /* colle le haut (moins de rognage haut) */
+      }
       .scrollHint{
-        bottom:8px;
+        bottom:10px;
         font-size:12px;
         padding:8px 12px;
       }
-
-      /* Décommente si tu veux "aucune coupe" sur mobile (mais pas plein écran) */
-      /*
-      .hero{
-        background-size: contain;
-        background-color: #05060a;
-      }
-      */
     }
 
     /* ===== SECTION AGENTS ===== */
@@ -244,14 +247,8 @@
     }
     .pill svg{width:18px;height:18px;fill:currentColor}
 
-    .call{
-      background:rgba(0,0,0,.45);
-      color:var(--ink);
-    }
-    .mail{
-      background:rgba(0,0,0,.45);
-      color:var(--ink);
-    }
+    .call{ background:rgba(0,0,0,.45); color:var(--ink); }
+    .mail{ background:rgba(0,0,0,.45); color:var(--ink); }
 
     .wa{
       background:var(--wa);
@@ -274,8 +271,8 @@
 
 <body>
 
-  <!-- HERO (plein écran) -->
-  <section class="hero">
+  <!-- HERO (plein écran via background-image PC/Mobile) -->
+  <section class="hero" aria-label="Evidenc’IA">
     <div class="scrollHint">Faites défiler pour découvrir nos agents ↓</div>
   </section>
 
@@ -397,4 +394,3 @@
 
 </body>
 </html>
-
