@@ -7,7 +7,6 @@
 
   <style>
     :root{
-      /* ===== THEME NOIR ===== */
       --bg1:#05060a;
       --bg2:#0a0d16;
       --ink:#eef2ff;
@@ -18,9 +17,6 @@
       --shadowSoft:0 14px 40px rgba(0,0,0,.45);
 
       --line:rgba(255,255,255,.10);
-      --glass:rgba(255,255,255,.06);
-      --glass2:rgba(255,255,255,.10);
-
       --wa:#25D366;
     }
 
@@ -34,29 +30,20 @@
       overflow-x:hidden;
     }
 
-    /* ===== HERO PLEIN ÉCRAN (AVEC IMAGES DÉDIÉES PC/MOBILE) =====
-       - background-size: cover => plein écran
-       - background-position => colle le haut, rogne plutôt le bas
-    */
-.hero{
-  height:100vh;
-  width:100vw;
-  position:relative;
-  overflow:hidden;
+    /* ===== HERO PLEIN ÉCRAN (PC/MOBILE) ===== */
+    .hero{
+      height:100vh;
+      width:100vw;
+      position:relative;
+      overflow:hidden;
 
-  background-image: url("images/logopc.png");
-  background-repeat: no-repeat;
-
-  /* CLÉ DU RÉSULTAT */
-  background-size: cover;
-  background-position: 50% 50%;
-
-  background-color:#05060a;
-}
-
+      background-image:url("images/logopc.png");
+      background-repeat:no-repeat;
+      background-size:cover;
+      background-position:50% 50%;
+      background-color:#05060a;
     }
 
-    /* Optionnel: vignettage léger pour donner du contraste */
     .hero::after{
       content:"";
       position:absolute; inset:0;
@@ -66,35 +53,10 @@
       pointer-events:none;
     }
 
-    .scrollHint{
-      position:absolute;
-      left:50%;
-      bottom:14px;
-      transform:translateX(-50%);
-      background:rgba(0,0,0,.45);
-      border:1px solid var(--line);
-      box-shadow:var(--shadowSoft);
-      padding:10px 14px;
-      border-radius:999px;
-      font-weight:900;
-      color:rgba(238,242,255,.85);
-      white-space:nowrap;
-      user-select:none;
-      font-size:13px;
-      backdrop-filter: blur(10px);
-      z-index:2;
-    }
-
-    /* ===== MOBILE: image dédiée + position optimisée ===== */
     @media (max-width: 768px){
       .hero{
         background-image:url("images/logomobile.png");
-        background-position:50% 10%; /* colle le haut (moins de rognage haut) */
-      }
-      .scrollHint{
-        bottom:10px;
-        font-size:12px;
-        padding:8px 12px;
+        background-position:50% 10%;
       }
     }
 
@@ -129,10 +91,10 @@
       .section h2{font-size:32px; margin-bottom:38px}
     }
 
-    /* Carte agent = PNG très visible */
+    /* ===== CARTES AGENTS : FORMAT UNIQUE (comme Téo) ===== */
     .agent{
       position:relative;
-      height:560px;
+      height:560px;                 /* identique pour tous */
       border-radius:var(--cardRadius);
       overflow:hidden;
       box-shadow:var(--shadow);
@@ -149,22 +111,31 @@
       border-color:rgba(255,140,40,.25);
     }
 
+    /* Zone image uniformisée */
     .media{
       position:absolute;
       inset:0;
-      padding:10px 10px 155px; /* laisse de la place au texte en bas */
+      padding:12px 12px 165px;      /* identique pour tous */
       display:flex;
       align-items:center;
       justify-content:center;
     }
+
+    /* Image uniformisée (même rendu pour tous) */
     .media img{
       width:100%;
       height:100%;
-      object-fit:contain; /* agent entier */
+      object-fit:contain;
+      object-position:center;
       display:block;
-      transform:scale(1.22); /* agrandi sans rognage */
+      transform:scale(1.18);        /* réglage “format Téo” */
       filter:drop-shadow(0 28px 52px rgba(0,0,0,.60));
     }
+
+    /* Ajustements optionnels par agent (si un PNG déborde)
+       -> tu peux modifier ces valeurs au besoin, mais le FORMAT reste identique */
+    .agent[data-fit="tight"] .media img{ transform:scale(1.10); }
+    .agent[data-fit="boost"] .media img{ transform:scale(1.26); }
 
     .overlay{
       position:absolute;
@@ -216,7 +187,7 @@
       background:rgba(255,255,255,.14);
     }
 
-    /* ===== CTA flottants (téléphone + mail + WhatsApp) ===== */
+    /* ===== CTA flottants ===== */
     .floating{
       position:fixed;
       right:18px;
@@ -227,15 +198,14 @@
       align-items:flex-end;
       gap:10px;
     }
-.floating .label{
-  font-size:12px;              /* +20% environ */
-  font-weight:900;
-  color:rgba(238,242,255,.85); /* un peu plus lisible */
-  text-align:right;
-  max-width:260px;
-  line-height:1.25;
-  text-shadow:0 10px 30px rgba(0,0,0,.65);
-
+    .floating .label{
+      font-size:12px;
+      font-weight:900;
+      color:rgba(238,242,255,.85);
+      text-align:right;
+      max-width:260px;
+      line-height:1.25;
+      text-shadow:0 10px 30px rgba(0,0,0,.65);
     }
     .pill{
       display:flex;
@@ -277,17 +247,14 @@
 
 <body>
 
-  <!-- HERO (plein écran via background-image PC/Mobile) -->
-  <section class="hero" aria-label="Evidenc’IA">
-  </section>
+  <section class="hero" aria-label="Evidenc’IA"></section>
 
-  <!-- AGENTS -->
   <section class="section" id="agents">
     <h2>Nos agents</h2>
 
     <div class="grid">
 
-      <article class="agent">
+      <article class="agent" data-fit="tight">
         <div class="media"><img src="images/kim.png" alt="Kim" loading="lazy"></div>
         <div class="overlay">
           <div class="box">
@@ -299,7 +266,7 @@
         </div>
       </article>
 
-      <article class="agent">
+      <article class="agent" data-fit="tight">
         <div class="media"><img src="images/lucas.png" alt="Lucas" loading="lazy"></div>
         <div class="overlay">
           <div class="box">
@@ -311,6 +278,7 @@
         </div>
       </article>
 
+      <!-- TÉO = référence (format standard) -->
       <article class="agent">
         <div class="media"><img src="images/teo.png" alt="Téo" loading="lazy"></div>
         <div class="overlay">
@@ -323,7 +291,7 @@
         </div>
       </article>
 
-      <article class="agent">
+      <article class="agent" data-fit="tight">
         <div class="media"><img src="images/max.png" alt="Max" loading="lazy"></div>
         <div class="overlay">
           <div class="box">
@@ -335,7 +303,7 @@
         </div>
       </article>
 
-      <article class="agent">
+      <article class="agent" data-fit="tight">
         <div class="media"><img src="images/rose.png" alt="Rose" loading="lazy"></div>
         <div class="overlay">
           <div class="box">
@@ -347,7 +315,7 @@
         </div>
       </article>
 
-      <article class="agent">
+      <article class="agent" data-fit="tight">
         <div class="media"><img src="images/emma.png" alt="Emma" loading="lazy"></div>
         <div class="overlay">
           <div class="box">
@@ -362,11 +330,9 @@
     </div>
   </section>
 
-  <!-- CTA flottants -->
   <div class="floating">
     <div class="label">Demandez une démo gratuite (env. 15 min)</div>
 
-    <!-- Téléphone -->
     <a class="pill call" href="tel:+33665752635" aria-label="Appeler 06 65 75 26 35">
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.07 21 3 13.93 3 5a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z"/>
@@ -374,7 +340,6 @@
       06 65 75 26 35
     </a>
 
-    <!-- Email -->
     <a class="pill mail" href="mailto:evidenciatech@gmail.com" aria-label="Envoyer un email à evidenciatech@gmail.com">
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
@@ -382,7 +347,6 @@
       evidenciatech@gmail.com
     </a>
 
-    <!-- WhatsApp -->
     <a class="pill wa"
        href="https://wa.me/33665752635?text=Bonjour%2C%20je%20souhaiterais%20une%20d%C3%A9monstration%20de%20vos%20agents%20IA."
        target="_blank" rel="noopener"
@@ -399,9 +363,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
