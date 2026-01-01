@@ -30,59 +30,44 @@
       overflow-x:hidden;
     }
 
-    /* ===== AJOUT : bloc login en haut à droite (sans modifier le site) ===== */
-    .top-login{
+    /* ===== AJOUT : bouton unique en haut à droite ===== */
+    .top-cta{
       position:fixed;
       top:16px;
       right:16px;
       z-index:10000;
-      display:flex;
-      gap:10px;
+      display:inline-flex;
       align-items:center;
+      justify-content:center;
+      gap:10px;
 
-      padding:10px 12px;
+      padding:10px 16px;
       border-radius:999px;
       background:rgba(0,0,0,.35);
       border:1px solid var(--line);
       backdrop-filter:blur(10px);
       box-shadow:0 14px 40px rgba(0,0,0,.45);
-    }
-    .top-login input{
-      width:160px;
-      padding:9px 12px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.06);
+
       color:var(--ink);
-      outline:none;
-      font-weight:700;
-      font-size:13px;
-    }
-    .top-login input::placeholder{ color:rgba(238,242,255,.55); }
-    .top-login button{
-      padding:9px 14px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.10);
-      color:var(--ink);
+      text-decoration:none;
       font-weight:900;
-      cursor:pointer;
-      transition:transform .16s ease, background .16s ease;
       font-size:13px;
+      transition:transform .16s ease, background .16s ease, border-color .16s ease;
       white-space:nowrap;
     }
-    .top-login button:hover{
+    .top-cta:hover{
       transform:translateY(-1px);
-      background:rgba(255,255,255,.14);
+      background:rgba(255,255,255,.10);
+      border-color:rgba(255,140,40,.25);
     }
+    .top-cta svg{width:18px;height:18px;fill:currentColor;opacity:.95}
+
     @media (max-width: 720px){
-      .top-login{
+      .top-cta{
         left:12px;
         right:12px;
-        justify-content:space-between;
-        border-radius:18px;
+        width:calc(100% - 24px);
       }
-      .top-login input{ width:38vw; min-width:120px; }
     }
 
     /* ===== HERO PLEIN ÉCRAN (PC/MOBILE) ===== */
@@ -298,12 +283,13 @@
 
 <body>
 
-  <!-- AJOUT : Login / Mot de passe / Connexion en haut à droite -->
-  <form class="top-login" id="topLogin">
-    <input id="loginEmail" type="email" placeholder="Login (email)" autocomplete="username" required>
-    <input id="loginPassword" type="password" placeholder="Mot de passe" autocomplete="current-password" required>
-    <button type="submit">Connexion</button>
-  </form>
+  <!-- Bouton unique : redirige vers la page login de l'app -->
+  <a class="top-cta" href="https://evidencia-app.vercel.app/login" aria-label="Accéder à l'application Evidenc’IA">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4zm0 2c-4.42 0-8 2-8 4.5V21h16v-2.5C20 16 16.42 14 12 14z"/>
+    </svg>
+    Connectez-vous à vos agents
+  </a>
 
   <section class="hero" aria-label="Evidenc’IA"></section>
 
@@ -336,7 +322,6 @@
         </div>
       </article>
 
-      <!-- TÉO = référence (format standard) -->
       <article class="agent">
         <div class="media"><img src="images/teo.png" alt="Téo" loading="lazy"></div>
         <div class="overlay">
@@ -418,17 +403,6 @@
   </div>
 
   <footer>© 2025 Evidenc’IA — Tous droits réservés</footer>
-
-  <!-- AJOUT : redirection vers l'app (sans envoyer le mot de passe) -->
-  <script>
-    document.getElementById('topLogin').addEventListener('submit', function(e){
-      e.preventDefault();
-      const email = document.getElementById('loginEmail').value.trim();
-      // IMPORTANT : ne pas transmettre le mot de passe dans l'URL
-      const target = 'https://app.evidencia.me/login' + (email ? ('?email=' + encodeURIComponent(email)) : '');
-      window.location.href = target;
-    });
-  </script>
 
 </body>
 </html>
