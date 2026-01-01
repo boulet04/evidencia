@@ -6,43 +6,304 @@
   <title>Evidenc’IA — Nos agents</title>
 
   <style>
-    :root {
-      --bg1: #05060a;
-      --bg2: #0a0d16;
-      --ink: #eef2ff;
-      --muted: rgba(238,242,255,.72);
+    :root{
+      --bg1:#05060a;
+      --bg2:#0a0d16;
+      --ink:#eef2ff;
+      --muted:rgba(238,242,255,.72);
 
-      --cardRadius: 26px;
-      --shadow: 0 24px 70px rgba(0,0,0,.55);
-      --shadowSoft: 0 14px 40px rgba(0,0,0,.45);
+      --cardRadius:26px;
+      --shadow:0 24px 70px rgba(0,0,0,.55);
+      --shadowSoft:0 14px 40px rgba(0,0,0,.45);
 
-      --line: rgba(255,255,255,.10);
-      --wa: #25D366;
+      --line:rgba(255,255,255,.10);
+      --wa:#25D366;
     }
 
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
-    body {
-      margin: 0;
-      font-family: "Segoe UI", Arial, sans-serif;
-      color: var(--ink);
-      background: linear-gradient(135deg, var(--bg1), var(--bg2));
-      overflow-x: hidden;
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:"Segoe UI", Arial, sans-serif;
+      color:var(--ink);
+      background:linear-gradient(135deg,var(--bg1),var(--bg2));
+      overflow-x:hidden;
     }
 
-    /* Vos styles existants pour le hero, section, agents, etc. */
-    /* ... (tout le CSS que vous aviez fourni) ... */
+    /* ===== AJOUT : bloc login en haut à droite (sans modifier le site) ===== */
+    .top-login{
+      position:fixed;
+      top:16px;
+      right:16px;
+      z-index:10000;
+      display:flex;
+      gap:10px;
+      align-items:center;
+
+      padding:10px 12px;
+      border-radius:999px;
+      background:rgba(0,0,0,.35);
+      border:1px solid var(--line);
+      backdrop-filter:blur(10px);
+      box-shadow:0 14px 40px rgba(0,0,0,.45);
+    }
+    .top-login input{
+      width:160px;
+      padding:9px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.06);
+      color:var(--ink);
+      outline:none;
+      font-weight:700;
+      font-size:13px;
+    }
+    .top-login input::placeholder{ color:rgba(238,242,255,.55); }
+    .top-login button{
+      padding:9px 14px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.10);
+      color:var(--ink);
+      font-weight:900;
+      cursor:pointer;
+      transition:transform .16s ease, background .16s ease;
+      font-size:13px;
+      white-space:nowrap;
+    }
+    .top-login button:hover{
+      transform:translateY(-1px);
+      background:rgba(255,255,255,.14);
+    }
+    @media (max-width: 720px){
+      .top-login{
+        left:12px;
+        right:12px;
+        justify-content:space-between;
+        border-radius:18px;
+      }
+      .top-login input{ width:38vw; min-width:120px; }
+    }
+
+    /* ===== HERO PLEIN ÉCRAN (PC/MOBILE) ===== */
+    .hero{
+      height:100vh;
+      width:100vw;
+      position:relative;
+      overflow:hidden;
+
+      background-image:url("images/logopc.png");
+      background-repeat:no-repeat;
+      background-size:cover;
+      background-position:50% 50%;
+      background-color:#05060a;
+    }
+
+    .hero::after{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(1200px 800px at 50% 40%, rgba(0,0,0,0) 55%, rgba(0,0,0,.55) 100%),
+        linear-gradient(to bottom, rgba(0,0,0,.25), rgba(0,0,0,.25));
+      pointer-events:none;
+    }
+
+    @media (max-width: 768px){
+      .hero{
+        background-image:url("images/logomobile.png");
+        background-position:50% 10%;
+      }
+    }
+
+    /* ===== SECTION AGENTS ===== */
+    .section{
+      padding:70px 6vw 55px;
+      background:
+        radial-gradient(1100px 700px at 50% 0%, rgba(255,140,40,.10), transparent 60%),
+        radial-gradient(1000px 700px at 20% 40%, rgba(80,120,255,.10), transparent 60%),
+        linear-gradient(135deg,var(--bg1),var(--bg2));
+    }
+    .section h2{
+      margin:0 0 52px 0;
+      text-align:center;
+      font-size:44px;
+      letter-spacing:.2px;
+      text-shadow:0 10px 30px rgba(0,0,0,.55);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0,1fr));
+      gap:34px;
+    }
+    @media (max-width:1100px){
+      .grid{grid-template-columns:repeat(2, minmax(0,1fr))}
+      .section h2{font-size:38px}
+    }
+    @media (max-width:700px){
+      .grid{grid-template-columns:1fr}
+      .section{padding:55px 5vw 45px}
+      .section h2{font-size:32px; margin-bottom:38px}
+    }
+
+    /* ===== CARTES AGENTS : FORMAT UNIQUE (comme Téo) ===== */
+    .agent{
+      position:relative;
+      height:560px;
+      border-radius:var(--cardRadius);
+      overflow:hidden;
+      box-shadow:var(--shadow);
+      background:
+        radial-gradient(900px 620px at 55% 10%, rgba(80,120,255,.18), rgba(0,0,0,0) 60%),
+        radial-gradient(900px 620px at 78% 18%, rgba(255,140,40,.20), rgba(0,0,0,0) 62%),
+        linear-gradient(135deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+      border:1px solid var(--line);
+      transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+    }
+    .agent:hover{
+      transform:translateY(-6px);
+      box-shadow:0 34px 90px rgba(0,0,0,.62);
+      border-color:rgba(255,140,40,.25);
+    }
+
+    .media{
+      position:absolute;
+      inset:0;
+      padding:12px 12px 165px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .media img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      object-position:center;
+      display:block;
+      transform:scale(1.18);
+      filter:drop-shadow(0 28px 52px rgba(0,0,0,.60));
+    }
+
+    .agent[data-fit="tight"] .media img{ transform:scale(1.10); }
+    .agent[data-fit="boost"] .media img{ transform:scale(1.26); }
+
+    .overlay{
+      position:absolute;
+      left:18px;
+      right:18px;
+      bottom:18px;
+    }
+    .box{
+      background:rgba(0,0,0,.45);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:18px 18px 16px;
+      box-shadow:var(--shadowSoft);
+      backdrop-filter:blur(10px);
+    }
+    .box h3{
+      margin:0 0 6px 0;
+      font-size:26px;
+      font-weight:900;
+    }
+    .box strong{
+      display:block;
+      margin:0 0 10px 0;
+      font-size:16px;
+      font-weight:900;
+      color:rgba(238,242,255,.92);
+    }
+    .box p{
+      margin:0 0 14px 0;
+      font-size:14px;
+      font-weight:700;
+      color:var(--muted);
+      line-height:1.45;
+    }
+    .box a{
+      display:inline-block;
+      padding:10px 16px;
+      background:rgba(255,255,255,.10);
+      color:var(--ink);
+      text-decoration:none;
+      font-weight:900;
+      border-radius:999px;
+      font-size:14px;
+      border:1px solid var(--line);
+      transition:transform .16s ease, background .16s ease;
+    }
+    .box a:hover{
+      transform:translateY(-1px);
+      background:rgba(255,255,255,.14);
+    }
+
+    /* ===== CTA flottants ===== */
+    .floating{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      z-index:9999;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-end;
+      gap:4px;
+    }
+    .floating .label{
+      font-size:12px;
+      font-weight:900;
+      color:rgba(238,242,255,.85);
+      text-align:right;
+      max-width:260px;
+      line-height:1.25;
+      text-shadow:0 10px 30px rgba(0,0,0,.65);
+    }
+    .pill{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:9px 14px;
+      border-radius:999px;
+      text-decoration:none;
+      font-weight:900;
+      border:1px solid var(--line);
+      box-shadow:0 18px 45px rgba(0,0,0,.55);
+      backdrop-filter:blur(10px);
+      white-space:nowrap;
+    }
+    .pill svg{width:18px;height:18px;fill:currentColor}
+
+    .call{ background:rgba(0,0,0,.45); color:var(--ink); }
+    .mail{ background:rgba(0,0,0,.45); color:var(--ink); }
+
+    .wa{
+      background:var(--wa);
+      color:#0b2d18;
+      border-color:rgba(255,255,255,.18);
+    }
+    .wa svg{width:20px;height:20px;fill:#0b2d18}
+
+    footer{
+      text-align:center;
+      padding:40px 16px 55px;
+      background:linear-gradient(135deg,var(--bg1),var(--bg2));
+      color:rgba(238,242,255,.65);
+      font-weight:800;
+      font-size:13px;
+      border-top:1px solid var(--line);
+    }
   </style>
 </head>
 
 <body>
 
-  <!-- Lien de connexion en haut à droite -->
-  <nav style="position:absolute; top:20px; right:20px;">
-    <a href="/login" style="color: var(--ink); text-decoration: none; font-weight: bold;">
-      Connexion
-    </a>
-  </nav>
+  <!-- AJOUT : Login / Mot de passe / Connexion en haut à droite -->
+  <form class="top-login" id="topLogin">
+    <input id="loginEmail" type="email" placeholder="Login (email)" autocomplete="username" required>
+    <input id="loginPassword" type="password" placeholder="Mot de passe" autocomplete="current-password" required>
+    <button type="submit">Connexion</button>
+  </form>
 
   <section class="hero" aria-label="Evidenc’IA"></section>
 
@@ -50,9 +311,9 @@
     <h2>Nos agents</h2>
 
     <div class="grid">
-      <!-- Vos articles d'agents ici, tels que vous les avez fournis -->
+
       <article class="agent" data-fit="tight">
-        <div class="media"><img src="images/chloe.png" alt="Chloé" loading="lazy"></div>
+        <div class="media"><img src="images/chloe.png" alt="Choé" loading="lazy"></div>
         <div class="overlay">
           <div class="box">
             <h3>Chloé</h3>
@@ -75,17 +336,99 @@
         </div>
       </article>
 
-      <!-- Autres agents ici (Téo, Max, Rose, Emma) exactement comme vous les avez fournis -->
-      <!-- ... -->
+      <!-- TÉO = référence (format standard) -->
+      <article class="agent">
+        <div class="media"><img src="images/teo.png" alt="Téo" loading="lazy"></div>
+        <div class="overlay">
+          <div class="box">
+            <h3>Téo</h3>
+            <strong>Organisation</strong>
+            <p>Agenda, emails, priorités : un copilote qui vous aide à organiser votre quotidien.</p>
+            <a href="agents/teo.html">En savoir plus</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="agent" data-fit="tight">
+        <div class="media"><img src="images/max.png" alt="Max" loading="lazy"></div>
+        <div class="overlay">
+          <div class="box">
+            <h3>Max</h3>
+            <strong>Commercial</strong>
+            <p>Prospection, relances et suivi des opportunités commerciales.</p>
+            <a href="agents/max.html">En savoir plus</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="agent" data-fit="tight">
+        <div class="media"><img src="images/rose.png" alt="Rose" loading="lazy"></div>
+        <div class="overlay">
+          <div class="box">
+            <h3>Rose</h3>
+            <strong>Comptabilité</strong>
+            <p>Facturation, classement, reporting et organisation financière.</p>
+            <a href="agents/rose.html">En savoir plus</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="agent" data-fit="tight">
+        <div class="media"><img src="images/emma.png" alt="Emma" loading="lazy"></div>
+        <div class="overlay">
+          <div class="box">
+            <h3>Emma</h3>
+            <strong>Ressources humaines</strong>
+            <p>Tri, préqualification, réponses RH et assistance recrutement.</p>
+            <a href="agents/emma.html">En savoir plus</a>
+          </div>
+        </div>
+      </article>
+
     </div>
   </section>
 
   <div class="floating">
-    <!-- Boutons de contact, WhatsApp, etc. inchangés -->
-    <!-- ... -->
+    <div class="label">Demandez une démo gratuite (env. 15 min)</div>
+
+    <a class="pill call" href="tel:+33665752635" aria-label="Appeler 06 65 75 26 35">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.07 21 3 13.93 3 5a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z"/>
+      </svg>
+      06 65 75 26 35
+    </a>
+
+    <a class="pill mail" href="mailto:evidenciatech@gmail.com" aria-label="Envoyer un email à evidenciatech@gmail.com">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
+      </svg>
+      evidenciatech@gmail.com
+    </a>
+
+    <a class="pill wa"
+       href="https://wa.me/33665752635?text=Bonjour%2C%20je%20souhaiterais%20une%20d%C3%A9monstration%20de%20vos%20agents%20IA."
+       target="_blank" rel="noopener"
+       aria-label="Contacter sur WhatsApp">
+      <svg viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M19.11 17.07c-.27-.14-1.61-.79-1.86-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.16-.43-2.2-1.37-.81-.72-1.35-1.61-1.51-1.88-.16-.27-.02-.41.12-.54.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.46h-.52c-.18 0-.48.07-.73.34-.25.27-.95.93-.95 2.27 0 1.34.98 2.64 1.12 2.82.14.18 1.93 2.95 4.68 4.13.65.28 1.15.45 1.55.57.65.21 1.24.18 1.7.11.52-.08 1.61-.66 1.84-1.3.23-.64.23-1.19.16-1.3-.07-.11-.25-.18-.52-.32z"/>
+        <path d="M26.67 5.33A14.9 14.9 0 0016.06 1C7.96 1 1.37 7.6 1.37 15.7c0 2.58.67 5.11 1.95 7.35L1 31l8.13-2.13a14.63 14.63 0 006.93 1.76h.01c8.1 0 14.69-6.6 14.69-14.7 0-3.93-1.53-7.62-4.09-10.2zM16.06 28.3h-.01a12.3 12.3 0 01-6.27-1.72l-.45-.27-4.82 1.26 1.29-4.69-.29-.48a12.25 12.3 0 01-1.9-6.7C3.61 8.96 9.32 3.24 16.07 3.24c3.27 0 6.35 1.28 8.66 3.6a12.13 12.3 0 013.58 8.66c0 6.75-5.5 12.8-12.25 12.8z"/>
+      </svg>
+      WhatsApp
+    </a>
   </div>
 
   <footer>© 2025 Evidenc’IA — Tous droits réservés</footer>
+
+  <!-- AJOUT : redirection vers l'app (sans envoyer le mot de passe) -->
+  <script>
+    document.getElementById('topLogin').addEventListener('submit', function(e){
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value.trim();
+      // IMPORTANT : ne pas transmettre le mot de passe dans l'URL
+      const target = 'https://app.evidencia.me/login' + (email ? ('?email=' + encodeURIComponent(email)) : '');
+      window.location.href = target;
+    });
+  </script>
 
 </body>
 </html>
