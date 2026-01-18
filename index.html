@@ -18,6 +18,9 @@
 
       --line:rgba(255,255,255,.10);
       --wa:#25D366;
+
+      /* ✅ AJOUT : décalage vertical de la "bulle" (image) */
+      --bubbleShift: 34px; /* <-- augmente/diminue ici (ex: 24px / 40px) */
     }
 
     *{box-sizing:border-box}
@@ -154,7 +157,7 @@
     .media{
       position:absolute;
       inset:0;
-      padding:12px 12px 115px;
+      padding:12px 12px 165px;
       display:flex;
       align-items:center;
       justify-content:center;
@@ -166,19 +169,20 @@
       object-fit:contain;
       object-position:center;
       display:block;
-      transform:scale(1.18);
+      /* ✅ MODIF : on ajoute translateY pour descendre la "bulle" */
+      transform:translateY(var(--bubbleShift)) scale(1.18);
       filter:drop-shadow(0 28px 52px rgba(0,0,0,.60));
     }
 
-    .agent[data-fit="tight"] .media img{ transform:scale(1.10); }
-    .agent[data-fit="boost"] .media img{ transform:scale(1.26); }
+    /* ✅ IMPORTANT : ces règles écrasaient le transform, donc on garde translateY */
+    .agent[data-fit="tight"] .media img{ transform:translateY(var(--bubbleShift)) scale(1.10); }
+    .agent[data-fit="boost"] .media img{ transform:translateY(var(--bubbleShift)) scale(1.26); }
 
-.overlay{
-  position:absolute;
-  left:18px;
-  right:18px;
-  bottom:-6px !important;
-  outline: 4px solid red !important; /* TEST */
+    .overlay{
+      position:absolute;
+      left:18px;
+      right:18px;
+      bottom:18px;
     }
     .box{
       background:rgba(0,0,0,.45);
@@ -407,8 +411,3 @@
 
 </body>
 </html>
-
-
-
-
-
