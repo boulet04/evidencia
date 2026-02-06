@@ -6,7 +6,6 @@
   <title>Evidenc’IA — Vos assistants</title>
 
   <style>
-    /* ================= VARIABLES ================= */
     :root{
       --bg1:#05060a;
       --bg2:#0a0d16;
@@ -23,17 +22,15 @@
       --bubbleShift:34px;
     }
 
-    /* =============== MODE CLAIR =============== */
+    /* ===== MODE CLAIR (AJOUT) ===== */
     :root[data-theme="light"]{
       --bg1:#f6f7fb;
       --bg2:#ffffff;
       --ink:#0b0d17;
       --muted:rgba(11,13,23,.65);
-
-      --line:rgba(0,0,0,.12);
-
-      --shadow:0 20px 50px rgba(0,0,0,.18);
-      --shadowSoft:0 12px 28px rgba(0,0,0,.15);
+      --line:rgba(0,0,0,.10);
+      --shadow:0 24px 60px rgba(0,0,0,.15);
+      --shadowSoft:0 14px 30px rgba(0,0,0,.12);
     }
 
     *{box-sizing:border-box}
@@ -45,40 +42,21 @@
       color:var(--ink);
       background:linear-gradient(135deg,var(--bg1),var(--bg2));
       overflow-x:hidden;
-      transition:background .25s ease,color .25s ease;
     }
 
-    /* ================= HEADER ================= */
-    .header{
+    /* ===== SWITCH CLAIR / SOMBRE (AJOUT) ===== */
+    .theme-switch{
       position:fixed;
       top:16px;
-      left:16px;
-      right:16px;
-      z-index:10000;
+      right:260px;
+      z-index:10001;
       display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
-    }
-
-    /* LOGOS */
-    .logo img{
-      height:42px;
-      display:none;
-    }
-    :root[data-theme="dark"] .logo-dark{display:block}
-    :root[data-theme="light"] .logo-light{display:block}
-
-    /* ================= SWITCH ================= */
-    .theme-switch{
-      display:flex;
-      align-items:center;
       border:1px solid var(--line);
       border-radius:999px;
       overflow:hidden;
       background:rgba(0,0,0,.35);
       backdrop-filter:blur(10px);
-      box-shadow:var(--shadowSoft);
+      box-shadow:0 14px 40px rgba(0,0,0,.45);
     }
 
     .theme-switch button{
@@ -89,7 +67,6 @@
       font-weight:900;
       font-size:13px;
       cursor:pointer;
-      transition:.15s ease;
     }
 
     .theme-switch button.active{
@@ -97,9 +74,20 @@
       color:var(--ink);
     }
 
-    /* ================= CTA LOGIN ================= */
+    @media (max-width:720px){
+      .theme-switch{
+        right:16px;
+        top:70px;
+      }
+    }
+
+    /* ===== CTA LOGIN (INCHANGÉ) ===== */
     .top-cta{
-      display:flex;
+      position:fixed;
+      top:16px;
+      right:16px;
+      z-index:10000;
+      display:inline-flex;
       align-items:center;
       gap:10px;
       padding:10px 16px;
@@ -107,7 +95,7 @@
       background:rgba(0,0,0,.35);
       border:1px solid var(--line);
       backdrop-filter:blur(10px);
-      box-shadow:var(--shadowSoft);
+      box-shadow:0 14px 40px rgba(0,0,0,.45);
       color:var(--ink);
       text-decoration:none;
       font-weight:900;
@@ -117,41 +105,54 @@
 
     .top-cta svg{width:18px;height:18px;fill:currentColor}
 
-    /* ================= HERO ================= */
+    /* ===== HERO (INCHANGÉ + LOGO CLAIR) ===== */
     .hero{
       height:100vh;
-      background:url("images/logopc.png") center/cover no-repeat;
+      width:100vw;
       position:relative;
+      background:url("images/logopc.png") center/cover no-repeat;
     }
 
-    @media(max-width:768px){
+    :root[data-theme="light"] .hero{
+      background:url("images/logo-clair.png") center/contain no-repeat;
+      background-color:#ffffff;
+    }
+
+    @media (max-width:768px){
       .hero{
         background:url("images/logomobile.png") center 10%/cover no-repeat;
       }
+      :root[data-theme="light"] .hero{
+        background:url("images/logo-clair.png") center/contain no-repeat;
+      }
     }
 
-    .hero::after{
-      content:"";
-      position:absolute; inset:0;
-      background:linear-gradient(to bottom,rgba(0,0,0,.25),rgba(0,0,0,.25));
-    }
-
-    /* ================= SECTION ================= */
+    /* ===== SECTION AGENTS (INCHANGÉE) ===== */
     .section{
-      padding:70px 6vw 70px;
+      padding:70px 6vw 55px;
       background:linear-gradient(135deg,var(--bg1),var(--bg2));
     }
 
     .section h2{
       text-align:center;
-      font-size:40px;
-      margin-bottom:50px;
+      font-size:44px;
+      margin-bottom:52px;
     }
 
-    /* ================= AGENT ================= */
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:34px;
+    }
+
+    @media(max-width:1100px){.grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:700px){
+      .grid{grid-template-columns:1fr}
+      .section h2{font-size:32px}
+    }
+
     .agent{
-      max-width:420px;
-      margin:0 auto;
+      position:relative;
       height:560px;
       border-radius:var(--cardRadius);
       overflow:hidden;
@@ -200,18 +201,6 @@
     .box strong{display:block;margin:6px 0 10px}
     .box p{font-size:14px;color:var(--muted)}
 
-    .box a{
-      display:inline-block;
-      margin-top:10px;
-      padding:10px 16px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      text-decoration:none;
-      color:var(--ink);
-      font-weight:900;
-      font-size:14px;
-    }
-
     footer{
       text-align:center;
       padding:40px;
@@ -224,55 +213,44 @@
 
 <body>
 
-  <!-- ================= HEADER ================= -->
-  <div class="header">
-
-    <!-- LOGO -->
-    <div class="logo">
-      <img src="images/logo-sombre.png" alt="Evidenc’IA" class="logo-dark">
-      <img src="images/logo-clair.png" alt="Evidenc’IA" class="logo-light">
-    </div>
-
-    <!-- SWITCH -->
-    <div class="theme-switch">
-      <button id="btn-light">Clair</button>
-      <button id="btn-dark" class="active">Sombre</button>
-    </div>
-
-    <!-- LOGIN -->
-    <a class="top-cta" href="https://evidencia-app.vercel.app/login">
-      <svg viewBox="0 0 24 24">
-        <path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4z"/>
-      </svg>
-      Connectez-vous
-    </a>
-
+  <!-- SWITCH (AJOUT) -->
+  <div class="theme-switch">
+    <button id="btn-light">Clair</button>
+    <button id="btn-dark" class="active">Sombre</button>
   </div>
+
+  <!-- LOGIN (INCHANGÉ) -->
+  <a class="top-cta" href="https://evidencia-app.vercel.app/login">
+    <svg viewBox="0 0 24 24">
+      <path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4z"/>
+    </svg>
+    Connectez-vous
+  </a>
 
   <section class="hero"></section>
 
   <section class="section">
-    <h2>Votre assistante</h2>
+    <h2>Vos assistants</h2>
 
-    <article class="agent">
-      <div class="media">
-        <img src="images/chloe.png" alt="Chloé">
-      </div>
-      <div class="overlay">
-        <div class="box">
-          <h3>Chloé</h3>
-          <strong>Standardiste</strong>
-          <p>Toujours de bonne humeur, à l’écoute de vos clients 24/7.</p>
-          <a href="agents/chloe.html">En savoir plus</a>
-        </div>
-      </div>
-    </article>
-
+    <div class="grid">
+      <!-- Chloé -->
+      <article class="agent"><div class="media"><img src="images/chloe.png"></div></article>
+      <!-- Lucas -->
+      <article class="agent"><div class="media"><img src="images/lucas.png"></div></article>
+      <!-- Téo -->
+      <article class="agent"><div class="media"><img src="images/teo.png"></div></article>
+      <!-- Max -->
+      <article class="agent"><div class="media"><img src="images/max.png"></div></article>
+      <!-- Rose -->
+      <article class="agent"><div class="media"><img src="images/rose.png"></div></article>
+      <!-- Emma -->
+      <article class="agent"><div class="media"><img src="images/emma.png"></div></article>
+    </div>
   </section>
 
   <footer>© 2025 Evidenc’IA — Tous droits réservés</footer>
 
-  <!-- ================= SCRIPT ================= -->
+  <!-- SCRIPT SWITCH (AJOUT) -->
   <script>
     const root = document.documentElement;
     const btnLight = document.getElementById('btn-light');
@@ -281,13 +259,11 @@
     function setTheme(theme){
       root.setAttribute('data-theme', theme);
       localStorage.setItem('theme', theme);
-
       btnLight.classList.toggle('active', theme === 'light');
       btnDark.classList.toggle('active', theme === 'dark');
     }
 
-    const saved = localStorage.getItem('theme') || 'dark';
-    setTheme(saved);
+    setTheme(localStorage.getItem('theme') || 'dark');
 
     btnLight.onclick = () => setTheme('light');
     btnDark.onclick = () => setTheme('dark');
