@@ -12,12 +12,10 @@
   --ink:#eef2ff;
   --muted:rgba(238,242,255,.72);
   --accent:#ff8c28;
-
-  --cardRadius:26px;
-  --shadow:0 24px 70px rgba(0,0,0,.55);
   --line:rgba(255,255,255,.10);
 }
 
+/* ===== GLOBAL ===== */
 *{box-sizing:border-box}
 body{
   margin:0;
@@ -26,7 +24,20 @@ body{
   background:linear-gradient(135deg,var(--bg1),var(--bg2));
 }
 
-/* CTA */
+/* ===== LOGO TOP LEFT ===== */
+.logo{
+  position:fixed;
+  top:16px;
+  left:16px;
+  z-index:10000;
+}
+
+.logo img{
+  height:38px;
+  width:auto;
+}
+
+/* ===== CTA ===== */
 .top-cta{
   position:fixed;
   top:16px;
@@ -43,17 +54,19 @@ body{
   font-size:13px;
 }
 
-/* HERO */
+/* ===== HERO ===== */
 .hero{
   height:100vh;
   position:relative;
   overflow:hidden;
+
   background:
     radial-gradient(1200px 600px at 50% 20%, rgba(255,140,40,0.25), transparent 60%),
     radial-gradient(1000px 800px at 80% 30%, rgba(80,120,255,0.25), transparent 60%),
     linear-gradient(135deg,#05060a,#0a0f1f);
 }
 
+/* GRID */
 .hero::before{
   content:"";
   position:absolute;
@@ -65,17 +78,18 @@ body{
   mask-image:radial-gradient(circle at 50% 40%, black 40%, transparent 100%);
 }
 
+/* GLOW */
 .hero::after{
   content:"";
   position:absolute;
   inset:-20%;
   background:
-    radial-gradient(circle at 30% 40%, rgba(255,140,40,0.15), transparent 60%),
-    radial-gradient(circle at 70% 60%, rgba(80,120,255,0.15), transparent 60%);
+    radial-gradient(circle at 30% 40%, rgba(255,140,40,0.2), transparent 60%),
+    radial-gradient(circle at 70% 60%, rgba(80,120,255,0.2), transparent 60%);
   filter:blur(80px);
 }
 
-/* LOGO */
+/* ===== IMAGE AGENTS ===== */
 .hero-logo{
   position:absolute;
   inset:0;
@@ -83,18 +97,24 @@ body{
   align-items:center;
   justify-content:center;
   z-index:1;
+  pointer-events:none;
 }
 
 .hero-logo img{
-  width:65%;
-  max-width:800px;
-  opacity:1;
+  width:60%;
+  max-width:750px;
+
+  mix-blend-mode:screen;
+  filter:
+    brightness(1.2)
+    contrast(1.1)
+    drop-shadow(0 30px 80px rgba(255,140,40,.35));
 }
 
-/* TEXTE */
+/* ===== TEXTE ===== */
 .hero-content{
   position:absolute;
-  top:75%;
+  top:78%;
   left:50%;
   transform:translate(-50%, -50%);
   text-align:center;
@@ -102,19 +122,39 @@ body{
 }
 
 @media (max-width:768px){
-  .hero-content{ top:65%; }
+  .hero-content{ top:68%; }
 }
 
-.badge{color:var(--accent);font-weight:900;font-size:13px}
-.hero h1{font-size:56px;font-weight:900;margin:10px 0}
+.badge{
+  color:var(--accent);
+  font-weight:900;
+  font-size:13px;
+}
+
+.hero h1{
+  font-size:56px;
+  font-weight:900;
+  margin:10px 0;
+}
+
 .hero h1 span{color:var(--accent)}
-.hero p{color:var(--muted)}
 
-/* SECTION */
-.section{padding:70px 6vw}
-.section h2{text-align:center;font-size:40px;margin-bottom:50px}
+.hero p{
+  color:var(--muted);
+}
 
-/* GRID */
+/* ===== SECTION ===== */
+.section{
+  padding:70px 6vw;
+}
+
+.section h2{
+  text-align:center;
+  font-size:40px;
+  margin-bottom:50px;
+}
+
+/* ===== GRID ===== */
 .grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -125,13 +165,12 @@ body{
   .grid{grid-template-columns:1fr}
 }
 
-/* CARD */
+/* ===== CARD ===== */
 .agent{
   position:relative;
   height:560px;
-  border-radius:var(--cardRadius);
+  border-radius:26px;
   overflow:hidden;
-  box-shadow:var(--shadow);
   border:1px solid var(--line);
   background:rgba(255,255,255,.03);
 }
@@ -139,7 +178,6 @@ body{
 .media{
   position:absolute;
   inset:0;
-  padding:12px 12px 160px;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -147,9 +185,7 @@ body{
 
 .media img{
   width:100%;
-  height:100%;
   object-fit:contain;
-  transform:scale(1.2) translateY(30px);
 }
 
 .overlay{
@@ -166,7 +202,7 @@ body{
   padding:18px;
 }
 
-.box h3{margin:0;font-size:24px}
+.box h3{margin:0}
 .box strong{color:var(--accent)}
 .box p{color:var(--muted)}
 
@@ -180,6 +216,7 @@ body{
   font-weight:900;
 }
 
+/* ===== FOOTER ===== */
 footer{
   text-align:center;
   padding:40px;
@@ -190,10 +227,17 @@ footer{
 
 <body>
 
+<!-- LOGO -->
+<div class="logo">
+  <img src="images/logolong.png" alt="EvidencIA">
+</div>
+
+<!-- CTA -->
 <a class="top-cta" href="https://demo.evidencia.me/auth/login">
   Connectez-vous à vos agents
 </a>
 
+<!-- HERO -->
 <section class="hero">
 
   <div class="hero-logo">
@@ -208,64 +252,23 @@ footer{
 
 </section>
 
+<!-- AGENTS -->
 <section class="section">
   <h2>Vos assistants</h2>
 
   <div class="grid">
 
-    <article class="agent">
-      <div class="media"><img src="images/chloe.png"></div>
-      <div class="overlay"><div class="box">
-        <h3>Chloé</h3><strong>Standardiste</strong>
-        <p>Répond à vos clients 24/7.</p>
-        <a href="agents/chloe.html">Voir</a>
-      </div></div>
-    </article>
+    <article class="agent"><div class="media"><img src="images/chloe.png"></div><div class="overlay"><div class="box"><h3>Chloé</h3><strong>Standardiste</strong><p>Répond à vos clients 24/7.</p><a href="agents/chloe.html">Voir</a></div></div></article>
 
-    <article class="agent">
-      <div class="media"><img src="images/lucas.png"></div>
-      <div class="overlay"><div class="box">
-        <h3>Lucas</h3><strong>Marketing</strong>
-        <p>Génère du contenu automatiquement.</p>
-        <a href="agents/lucas.html">Voir</a>
-      </div></div>
-    </article>
+    <article class="agent"><div class="media"><img src="images/lucas.png"></div><div class="overlay"><div class="box"><h3>Lucas</h3><strong>Marketing</strong><p>Génère du contenu automatiquement.</p><a href="agents/lucas.html">Voir</a></div></div></article>
 
-    <article class="agent">
-      <div class="media"><img src="images/teo.png"></div>
-      <div class="overlay"><div class="box">
-        <h3>Téo</h3><strong>Organisation</strong>
-        <p>Optimise votre quotidien.</p>
-        <a href="agents/teo.html">Voir</a>
-      </div></div>
-    </article>
+    <article class="agent"><div class="media"><img src="images/teo.png"></div><div class="overlay"><div class="box"><h3>Téo</h3><strong>Organisation</strong><p>Optimise votre quotidien.</p><a href="agents/teo.html">Voir</a></div></div></article>
 
-    <article class="agent">
-      <div class="media"><img src="images/max.png"></div>
-      <div class="overlay"><div class="box">
-        <h3>Max</h3><strong>Commercial</strong>
-        <p>Augmente vos ventes.</p>
-        <a href="agents/max.html">Voir</a>
-      </div></div>
-    </article>
+    <article class="agent"><div class="media"><img src="images/max.png"></div><div class="overlay"><div class="box"><h3>Max</h3><strong>Commercial</strong><p>Augmente vos ventes.</p><a href="agents/max.html">Voir</a></div></div></article>
 
-    <article class="agent">
-      <div class="media"><img src="images/rose.png"></div>
-      <div class="overlay"><div class="box">
-        <h3>Rose</h3><strong>Comptabilité</strong>
-        <p>Gère vos finances.</p>
-        <a href="agents/rose.html">Voir</a>
-      </div></div>
-    </article>
+    <article class="agent"><div class="media"><img src="images/rose.png"></div><div class="overlay"><div class="box"><h3>Rose</h3><strong>Comptabilité</strong><p>Gère vos finances.</p><a href="agents/rose.html">Voir</a></div></div></article>
 
-    <article class="agent">
-      <div class="media"><img src="images/emma.png"></div>
-      <div class="overlay"><div class="box">
-        <h3>Emma</h3><strong>RH</strong>
-        <p>Gère vos équipes.</p>
-        <a href="agents/emma.html">Voir</a>
-      </div></div>
-    </article>
+    <article class="agent"><div class="media"><img src="images/emma.png"></div><div class="overlay"><div class="box"><h3>Emma</h3><strong>RH</strong><p>Gère vos équipes.</p><a href="agents/emma.html">Voir</a></div></div></article>
 
   </div>
 </section>
