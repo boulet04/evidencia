@@ -26,7 +26,7 @@ body{
   background:linear-gradient(135deg,var(--bg1),var(--bg2));
 }
 
-/* ===== TOP CTA ===== */
+/* CTA */
 .top-cta{
   position:fixed;
   top:16px;
@@ -43,7 +43,7 @@ body{
   font-size:13px;
 }
 
-/* ===== HERO ===== */
+/* HERO */
 .hero{
   height:100vh;
   position:relative;
@@ -51,7 +51,7 @@ body{
   background:
     radial-gradient(1200px 600px at 50% 20%, rgba(255,140,40,0.25), transparent 60%),
     radial-gradient(1000px 800px at 80% 30%, rgba(80,120,255,0.25), transparent 60%),
-    linear-gradient(135deg, #05060a 0%, #0a0f1f 100%);
+    linear-gradient(135deg,#05060a,#0a0f1f);
 }
 
 .hero::before{
@@ -75,14 +75,13 @@ body{
   filter:blur(80px);
 }
 
-/* ===== LOGO ===== */
+/* LOGO */
 .hero-logo{
   position:absolute;
   inset:0;
   display:flex;
   align-items:center;
   justify-content:center;
-  pointer-events:none;
   z-index:1;
 }
 
@@ -90,17 +89,15 @@ body{
   width:65%;
   max-width:800px;
   opacity:1;
-  transform:scale(1.05);
 }
 
-/* ===== HERO CONTENT (PLUS BAS) ===== */
+/* TEXTE */
 .hero-content{
   position:absolute;
-  top:75%; /* 🔥 ENCORE PLUS BAS */
+  top:75%;
   left:50%;
   transform:translate(-50%, -50%);
   text-align:center;
-  max-width:900px;
   z-index:2;
 }
 
@@ -108,37 +105,16 @@ body{
   .hero-content{ top:65%; }
 }
 
-.badge{
-  color:var(--accent);
-  font-weight:900;
-  font-size:13px;
-}
-
-.hero h1{
-  font-size:56px;
-  font-weight:900;
-  margin:12px 0;
-}
-
+.badge{color:var(--accent);font-weight:900;font-size:13px}
+.hero h1{font-size:56px;font-weight:900;margin:10px 0}
 .hero h1 span{color:var(--accent)}
+.hero p{color:var(--muted)}
 
-.hero p{
-  font-size:18px;
-  color:var(--muted);
-}
+/* SECTION */
+.section{padding:70px 6vw}
+.section h2{text-align:center;font-size:40px;margin-bottom:50px}
 
-/* ===== SECTION ===== */
-.section{
-  padding:70px 6vw;
-}
-
-.section h2{
-  text-align:center;
-  font-size:40px;
-  margin-bottom:50px;
-}
-
-/* ===== GRID ===== */
+/* GRID */
 .grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -149,7 +125,7 @@ body{
   .grid{grid-template-columns:1fr}
 }
 
-/* ===== CARDS ===== */
+/* CARD */
 .agent{
   position:relative;
   height:560px;
@@ -191,8 +167,8 @@ body{
 }
 
 .box h3{margin:0;font-size:24px}
-.box strong{color:var(--accent);font-size:14px}
-.box p{font-size:14px;margin:10px 0;color:var(--muted)}
+.box strong{color:var(--accent)}
+.box p{color:var(--muted)}
 
 .box a{
   display:inline-block;
@@ -226,29 +202,34 @@ footer{
 
   <div class="hero-content">
     <div class="badge">PLATEFORME IA ENTREPRISE</div>
-
-    <h1>
-      Vos agents IA<br>
-      <span>travaillent pour vous</span>
-    </h1>
-
-    <p>
-      Marketing, SEO, relation client, téléphonie —
-      automatisez votre entreprise avec des agents intelligents.
-    </p>
+    <h1>Vos agents IA<br><span>travaillent pour vous</span></h1>
+    <p>Automatisez votre entreprise avec des agents intelligents.</p>
   </div>
 
 </section>
 
-<section class="section" id="agents">
+<section class="section">
   <h2>Vos assistants</h2>
+
   <div class="grid">
-    <!-- tes 6 agents ici -->
+
+    <article class="agent"><div class="media"><img src="images/chloe.png"></div><div class="overlay"><div class="box"><h3>Chloé</h3><strong>Standardiste</strong><p>Répond à vos clients 24/7.</p><a href="#">Voir</a></div></div></article>
+
+    <article class="agent"><div class="media"><img src="images/lucas.png"></div><div class="overlay"><div class="box"><h3>Lucas</h3><strong>Marketing</strong><p>Génère du contenu automatiquement.</p><a href="#">Voir</a></div></div></article>
+
+    <article class="agent"><div class="media"><img src="images/teo.png"></div><div class="overlay"><div class="box"><h3>Téo</h3><strong>Organisation</strong><p>Optimise votre quotidien.</p><a href="#">Voir</a></div></div></article>
+
+    <article class="agent"><div class="media"><img src="images/max.png"></div><div class="overlay"><div class="box"><h3>Max</h3><strong>Commercial</strong><p>Augmente vos ventes.</p><a href="#">Voir</a></div></div></article>
+
+    <article class="agent"><div class="media"><img src="images/rose.png"></div><div class="overlay"><div class="box"><h3>Rose</h3><strong>Comptabilité</strong><p>Gère vos finances.</p><a href="#">Voir</a></div></div></article>
+
+    <article class="agent"><div class="media"><img src="images/emma.png"></div><div class="overlay"><div class="box"><h3>Emma</h3><strong>RH</strong><p>Gère vos équipes.</p><a href="#">Voir</a></div></div></article>
+
   </div>
 </section>
 
 <footer>
-© 2025 Evidenc’IA — Tous droits réservés
+© 2025 Evidenc’IA
 </footer>
 
 </body>
