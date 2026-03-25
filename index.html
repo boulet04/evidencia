@@ -18,7 +18,6 @@
   --line:rgba(255,255,255,.10);
 }
 
-/* ===== GLOBAL ===== */
 *{box-sizing:border-box}
 body{
   margin:0;
@@ -60,15 +59,21 @@ body{
   filter:blur(80px);
 }
 
-/* ===== HERO CONTENT ===== */
+/* ===== HERO CONTENT (DESCENDU) ===== */
 .hero-content{
   position:absolute;
-  top:50%;
+  top:65%; /* 🔥 DESCENTE */
   left:50%;
   transform:translate(-50%, -50%);
   text-align:center;
   max-width:900px;
   z-index:2;
+}
+
+@media (max-width:768px){
+  .hero-content{
+    top:60%;
+  }
 }
 
 .badge{
@@ -218,7 +223,6 @@ footer{
 
   <div class="grid">
 
-    <!-- CHLOÉ -->
     <article class="agent">
       <div class="media"><img src="images/chloe.png"></div>
       <div class="overlay">
@@ -231,7 +235,6 @@ footer{
       </div>
     </article>
 
-    <!-- LUCAS -->
     <article class="agent">
       <div class="media"><img src="images/lucas.png"></div>
       <div class="overlay">
@@ -244,7 +247,6 @@ footer{
       </div>
     </article>
 
-    <!-- TEO -->
     <article class="agent">
       <div class="media"><img src="images/teo.png"></div>
       <div class="overlay">
@@ -257,7 +259,6 @@ footer{
       </div>
     </article>
 
-    <!-- MAX -->
     <article class="agent">
       <div class="media"><img src="images/max.png"></div>
       <div class="overlay">
@@ -270,7 +271,6 @@ footer{
       </div>
     </article>
 
-    <!-- ROSE -->
     <article class="agent">
       <div class="media"><img src="images/rose.png"></div>
       <div class="overlay">
@@ -283,7 +283,6 @@ footer{
       </div>
     </article>
 
-    <!-- EMMA -->
     <article class="agent">
       <div class="media"><img src="images/emma.png"></div>
       <div class="overlay">
