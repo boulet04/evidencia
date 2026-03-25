@@ -43,11 +43,6 @@ body{
   text-decoration:none;
   font-weight:900;
   font-size:13px;
-  transition:.2s;
-}
-
-.top-cta:hover{
-  background:rgba(255,255,255,.1);
 }
 
 /* ===== HERO ===== */
@@ -62,6 +57,7 @@ body{
     linear-gradient(135deg, #05060a 0%, #0a0f1f 100%);
 }
 
+/* GRID */
 .hero::before{
   content:"";
   position:absolute;
@@ -73,6 +69,7 @@ body{
   mask-image:radial-gradient(circle at 50% 40%, black 40%, transparent 100%);
 }
 
+/* GLOW */
 .hero::after{
   content:"";
   position:absolute;
@@ -81,6 +78,26 @@ body{
     radial-gradient(circle at 30% 40%, rgba(255,140,40,0.15), transparent 60%),
     radial-gradient(circle at 70% 60%, rgba(80,120,255,0.15), transparent 60%);
   filter:blur(80px);
+}
+
+/* ===== LOGO TRANSLUCIDE ===== */
+.hero-logo{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  pointer-events:none;
+  z-index:1;
+}
+
+.hero-logo img{
+  width:70%;
+  max-width:900px;
+  opacity:0.06;
+  filter:blur(2px);
+  mix-blend-mode:lighten;
+  transform:scale(1.1);
 }
 
 /* ===== HERO CONTENT ===== */
@@ -210,13 +227,20 @@ footer{
 
 <body>
 
-<!-- CTA TOP -->
+<!-- CTA -->
 <a class="top-cta" href="https://demo.evidencia.me/auth/login">
   Connectez-vous à vos agents
 </a>
 
 <!-- HERO -->
 <section class="hero">
+
+  <!-- LOGO TRANSLUCIDE -->
+  <div class="hero-logo">
+    <img src="images/logopc.png" alt="">
+  </div>
+
+  <!-- TEXTE -->
   <div class="hero-content">
     <div class="badge">PLATEFORME IA ENTREPRISE</div>
 
@@ -230,6 +254,7 @@ footer{
       automatisez votre entreprise avec des agents intelligents.
     </p>
   </div>
+
 </section>
 
 <!-- AGENTS -->
