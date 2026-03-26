@@ -110,15 +110,14 @@ body{
   z-index:2;
   overflow:hidden;
   pointer-events:none;
-  white-space:nowrap;
 }
 
 .agent-track{
   display:flex;
   align-items:center;
   gap:18px;
-  width:max-content;
-  animation:scrollAgents 24s linear infinite;
+  width:calc((84px * 12) + (18px * 11));
+  animation:scrollAgents 20s linear infinite;
   padding:12px 0;
 }
 
@@ -141,8 +140,8 @@ body{
 }
 
 @keyframes scrollAgents{
-  0%{ transform:translateX(0); }
-  100%{ transform:translateX(calc(-50% - 9px)); }
+  from{ transform:translateX(0); }
+  to{ transform:translateX(calc(-1 * ((84px * 6) + (18px * 6)))); }
 }
 
 /* ===== PHRASE AJOUTÉE ===== */
