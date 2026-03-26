@@ -112,13 +112,19 @@ body{
   pointer-events:none;
 }
 
+.agent-marquee{
+  display:flex;
+  width:max-content;
+  padding-left:100vw;
+  animation:scrollAgents 20s linear infinite;
+}
+
 .agent-track{
   display:flex;
   align-items:center;
   gap:18px;
-  width:calc((84px * 12) + (18px * 11));
-  animation:scrollAgents 20s linear infinite;
-  padding:12px 0;
+  flex-shrink:0;
+  padding-right:18px;
 }
 
 .agent-bubble{
@@ -141,7 +147,7 @@ body{
 
 @keyframes scrollAgents{
   from{ transform:translateX(0); }
-  to{ transform:translateX(calc(-1 * ((84px * 6) + (18px * 6)))); }
+  to{ transform:translateX(-50%); }
 }
 
 /* ===== PHRASE AJOUTÉE ===== */
@@ -314,20 +320,24 @@ footer{
   </div>
 
   <div class="agent-slider">
-    <div class="agent-track">
-      <div class="agent-bubble"><img src="images/chloe-bulle.png" alt="Chloé"></div>
-      <div class="agent-bubble"><img src="images/lucas-bulle.png" alt="Lucas"></div>
-      <div class="agent-bubble"><img src="images/teo-bulle.png" alt="Téo"></div>
-      <div class="agent-bubble"><img src="images/max-bulle.png" alt="Max"></div>
-      <div class="agent-bubble"><img src="images/rose-bulle.png" alt="Rose"></div>
-      <div class="agent-bubble"><img src="images/emma-bulle.png" alt="Emma"></div>
+    <div class="agent-marquee">
+      <div class="agent-track">
+        <div class="agent-bubble"><img src="images/chloe-bulle.png" alt="Chloé"></div>
+        <div class="agent-bubble"><img src="images/lucas-bulle.png" alt="Lucas"></div>
+        <div class="agent-bubble"><img src="images/teo-bulle.png" alt="Téo"></div>
+        <div class="agent-bubble"><img src="images/max-bulle.png" alt="Max"></div>
+        <div class="agent-bubble"><img src="images/rose-bulle.png" alt="Rose"></div>
+        <div class="agent-bubble"><img src="images/emma-bulle.png" alt="Emma"></div>
+      </div>
 
-      <div class="agent-bubble"><img src="images/chloe-bulle.png" alt="Chloé"></div>
-      <div class="agent-bubble"><img src="images/lucas-bulle.png" alt="Lucas"></div>
-      <div class="agent-bubble"><img src="images/teo-bulle.png" alt="Téo"></div>
-      <div class="agent-bubble"><img src="images/max-bulle.png" alt="Max"></div>
-      <div class="agent-bubble"><img src="images/rose-bulle.png" alt="Rose"></div>
-      <div class="agent-bubble"><img src="images/emma-bulle.png" alt="Emma"></div>
+      <div class="agent-track">
+        <div class="agent-bubble"><img src="images/chloe-bulle.png" alt="Chloé"></div>
+        <div class="agent-bubble"><img src="images/lucas-bulle.png" alt="Lucas"></div>
+        <div class="agent-bubble"><img src="images/teo-bulle.png" alt="Téo"></div>
+        <div class="agent-bubble"><img src="images/max-bulle.png" alt="Max"></div>
+        <div class="agent-bubble"><img src="images/rose-bulle.png" alt="Rose"></div>
+        <div class="agent-bubble"><img src="images/emma-bulle.png" alt="Emma"></div>
+      </div>
     </div>
   </div>
 
