@@ -1,69 +1,57 @@
-<!-- FLOATING CONTACT -->
-<div style="
+<!-- AJOUT CSS -->
+<style>
+/* ===== CONTACT FLOTTANT ===== */
+.floating-contact{
   position:fixed;
-  right:18px;
-  bottom:18px;
-  z-index:9999;
+  bottom:20px;
+  right:20px;
   display:flex;
   flex-direction:column;
-  align-items:flex-end;
-  gap:6px;
-">
+  gap:12px;
+  z-index:10000;
+}
 
-  <!-- TEL -->
-  <a href="tel:+33665752635" style="
-    display:flex;
-    align-items:center;
-    gap:8px;
-    padding:10px 14px;
-    border-radius:999px;
-    background:rgba(0,0,0,.5);
-    border:1px solid rgba(255,255,255,.10);
-    color:white;
-    text-decoration:none;
-    font-weight:900;
-  ">
-    <!-- TEL ORANGE -->
-    <svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:#ff8c28;">
-      <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.07 21 3 13.93 3 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z"/>
-    </svg>
-    06 65 75 26 35
-  </a>
+.contact-item{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 14px;
+  border-radius:999px;
+  background:rgba(0,0,0,.5);
+  backdrop-filter:blur(10px);
+  border:1px solid var(--line);
+  color:white;
+  text-decoration:none;
+  font-weight:600;
+  transition:.2s;
+}
 
-  <!-- MAIL -->
-  <a href="mailto:admin@evidencia.me" style="
-    display:flex;
-    align-items:center;
-    gap:8px;
-    padding:10px 14px;
-    border-radius:999px;
-    background:rgba(0,0,0,.5);
-    border:1px solid rgba(255,255,255,.10);
-    color:white;
-    text-decoration:none;
-    font-weight:900;
-  ">
-    <!-- MAIL PREMIUM -->
-    <svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:white;">
-      <path d="M3 6l9 6 9-6v12H3z"/>
-      <path d="M21 6l-9 6-9-6"/>
-    </svg>
-    admin@evidencia.me
-  </a>
+.contact-item:hover{
+  transform:translateY(-2px);
+  background:rgba(0,0,0,.7);
+}
 
-  <!-- WHATSAPP -->
-  <a href="https://wa.me/33665752635" target="_blank" style="
-    display:flex;
-    align-items:center;
-    gap:8px;
-    padding:10px 14px;
-    border-radius:999px;
-    background:#25D366;
-    color:#0b2d18;
-    text-decoration:none;
-    font-weight:900;
-  ">
-    WhatsApp
-  </a>
+/* ICONES */
+.contact-icon{
+  width:18px;
+  height:18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
 
-</div>
+/* TELEPHONE ORANGE */
+.phone-icon svg{
+  fill:var(--accent);
+}
+
+/* MAIL PREMIUM */
+.mail-icon svg{
+  fill:white;
+}
+
+/* WHATSAPP */
+.whatsapp-icon svg{
+  fill:#25D366;
+}
+</style>
