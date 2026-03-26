@@ -105,11 +105,12 @@ body{
   position:absolute;
   left:0;
   right:0;
-  top:67%;
+  top:71%;
   transform:translateY(-50%);
   z-index:2;
   overflow:hidden;
   pointer-events:none;
+  white-space:nowrap;
 }
 
 .agent-track{
@@ -117,7 +118,7 @@ body{
   align-items:center;
   gap:18px;
   width:max-content;
-  animation:scrollAgents 28s linear infinite;
+  animation:scrollAgents 24s linear infinite;
   padding:12px 0;
 }
 
@@ -140,8 +141,8 @@ body{
 }
 
 @keyframes scrollAgents{
-  from{ transform:translateX(0); }
-  to{ transform:translateX(-50%); }
+  0%{ transform:translateX(0); }
+  100%{ transform:translateX(calc(-50% - 9px)); }
 }
 
 /* ===== PHRASE AJOUTÉE ===== */
