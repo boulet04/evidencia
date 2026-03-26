@@ -1,259 +1,60 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Evidenc’IA — Vos assistants</title>
-
-<style>
-:root{
-  --bg1:#05060a;
-  --bg2:#0a0f1f;
-  --ink:#eef2ff;
-  --muted:rgba(238,242,255,.72);
-  --accent:#ff8c28;
-  --line:rgba(255,255,255,.10);
-  --wa:#25D366;
-}
-
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:"Segoe UI", Arial, sans-serif;
-  color:var(--ink);
-  background:linear-gradient(135deg,var(--bg1),var(--bg2));
-}
-
-/* LOGO */
-.logo{
-  position:fixed;
-  top:5px;
-  left:20px;
-  z-index:10000;
-}
-.logo img{
-  height:180px;
-}
-
-/* CTA */
-.top-cta{
-  position:fixed;
-  top:16px;
-  right:16px;
-  z-index:10000;
-  padding:10px 16px;
-  border-radius:999px;
-  background:rgba(0,0,0,.4);
-  border:1px solid var(--line);
-  backdrop-filter:blur(10px);
-  color:var(--ink);
-  text-decoration:none;
-  font-weight:900;
-}
-
-/* HERO */
-.hero{
-  height:100vh;
-  position:relative;
-  overflow:hidden;
-  background:
-    radial-gradient(1200px 600px at 50% 20%, rgba(255,140,40,0.25), transparent 60%),
-    radial-gradient(1000px 800px at 80% 30%, rgba(80,120,255,0.25), transparent 60%),
-    linear-gradient(135deg,#05060a,#0a0f1f);
-}
-
-.hero-logo{
-  position:absolute;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.hero-logo img{
-  width:60%;
-  mix-blend-mode:screen;
-}
-
-.hero-content{
-  position:absolute;
-  top:82%;
-  left:50%;
-  transform:translate(-50%, -50%);
-  text-align:center;
-}
-
-.hero-text{
-  font-size:42px;
-  font-weight:900;
-}
-.hero-text span{color:var(--accent)}
-
-/* SECTION */
-.section{padding:70px 6vw}
-.section h2{text-align:center;font-size:40px;margin-bottom:50px}
-
-/* GRID */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:34px;
-}
-
-/* CARD */
-.agent{
-  position:relative;
-  height:560px;
-  border-radius:26px;
-  overflow:hidden;
-  border:1px solid var(--line);
-}
-
-.media{
-  position:absolute;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.media img{width:100%}
-
-.overlay{
-  position:absolute;
-  bottom:18px;
-  left:18px;
-  right:18px;
-}
-
-.box{
-  background:rgba(0,0,0,.45);
-  border-radius:18px;
-  padding:18px;
-}
-
-.box h3{margin:0}
-.box strong{color:var(--accent)}
-.box p{color:var(--muted)}
-
-.box a{
-  display:inline-block;
-  padding:10px 16px;
-  border-radius:999px;
-  background:rgba(255,255,255,.1);
-  text-decoration:none;
-  color:white;
-  font-weight:900;
-}
-
-/* FLOATING */
-.floating{
+<!-- FLOATING CONTACT (AJOUT UNIQUEMENT) -->
+<div style="
   position:fixed;
   right:18px;
   bottom:18px;
+  z-index:9999;
   display:flex;
   flex-direction:column;
-  gap:8px;
-}
+  gap:6px;
+">
 
-.pill{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  padding:10px 14px;
-  border-radius:999px;
-  text-decoration:none;
-  font-weight:900;
-  background:rgba(0,0,0,.5);
-  border:1px solid var(--line);
-  color:white;
-}
-
-.pill svg{
-  width:18px;
-  height:18px;
-  fill:white;
-}
-
-.wa{
-  background:var(--wa);
-  color:black;
-}
-
-footer{
-  text-align:center;
-  padding:40px;
-}
-</style>
-</head>
-
-<body>
-
-<div class="logo">
-  <img src="images/logolong.png">
-</div>
-
-<a class="top-cta" href="https://demo.evidencia.me/auth/login">
-  Connectez-vous à vos agents
-</a>
-
-<section class="hero">
-  <div class="hero-logo">
-    <img src="images/logopc.png">
-  </div>
-
-  <div class="hero-content">
-    <div class="hero-text">
-      Des assistants intelligents,<br>
-      <span>des résultats évidents !</span>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <h2>Vos assistants</h2>
-
-  <div class="grid">
-
-    <article class="agent"><div class="media"><img src="images/chloe.png"></div><div class="overlay"><div class="box"><h3>Chloé</h3><strong>Standardiste</strong><p>Répond à vos clients 24/7.</p><a href="agents/chloe.html">Voir</a></div></div></article>
-
-    <article class="agent"><div class="media"><img src="images/lucas.png"></div><div class="overlay"><div class="box"><h3>Lucas</h3><strong>Marketing</strong><p>Génère du contenu automatiquement.</p><a href="agents/lucas.html">Voir</a></div></div></article>
-
-    <article class="agent"><div class="media"><img src="images/teo.png"></div><div class="overlay"><div class="box"><h3>Téo</h3><strong>Organisation</strong><p>Optimise votre quotidien.</p><a href="agents/teo.html">Voir</a></div></div></article>
-
-    <article class="agent"><div class="media"><img src="images/max.png"></div><div class="overlay"><div class="box"><h3>Max</h3><strong>Commercial</strong><p>Augmente vos ventes.</p><a href="agents/max.html">Voir</a></div></div></article>
-
-    <article class="agent"><div class="media"><img src="images/rose.png"></div><div class="overlay"><div class="box"><h3>Rose</h3><strong>Comptabilité</strong><p>Gère vos finances.</p><a href="agents/rose.html">Voir</a></div></div></article>
-
-    <article class="agent"><div class="media"><img src="images/emma.png"></div><div class="overlay"><div class="box"><h3>Emma</h3><strong>RH</strong><p>Gère vos équipes.</p><a href="agents/emma.html">Voir</a></div></div></article>
-
-  </div>
-</section>
-
-<!-- FLOATING -->
-<div class="floating">
-
-  <a class="pill" href="tel:+33665752635">
+  <a href="tel:+33665752635" style="
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 14px;
+    border-radius:999px;
+    background:rgba(0,0,0,.5);
+    border:1px solid rgba(255,255,255,.10);
+    color:white;
+    text-decoration:none;
+    font-weight:900;
+  ">
     📞 06 65 75 26 35
   </a>
 
-  <a class="pill" href="mailto:admin@evidencia.me">
+  <a href="mailto:admin@evidencia.me" style="
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 14px;
+    border-radius:999px;
+    background:rgba(0,0,0,.5);
+    border:1px solid rgba(255,255,255,.10);
+    color:white;
+    text-decoration:none;
+    font-weight:900;
+  ">
     <!-- ICON MAIL PREMIUM -->
-    <svg viewBox="0 0 24 24">
+    <svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:white;">
       <path d="M20 4H4a2 2 0 0 0-2 2v.01l10 6 10-6V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V18a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
     </svg>
     admin@evidencia.me
   </a>
 
-  <a class="pill wa" href="https://wa.me/33665752635">
+  <a href="https://wa.me/33665752635" target="_blank" style="
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 14px;
+    border-radius:999px;
+    background:#25D366;
+    color:black;
+    text-decoration:none;
+    font-weight:900;
+  ">
     WhatsApp
   </a>
 
 </div>
-
-<footer>
-© 2025 Evidenc’IA
-</footer>
-
-</body>
-</html>
