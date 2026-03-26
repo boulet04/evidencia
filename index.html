@@ -100,6 +100,50 @@ body{
   filter:brightness(1.2) contrast(1.1);
 }
 
+/* ===== BULLES D'AGENTS (AJOUT) ===== */
+.agent-slider{
+  position:absolute;
+  left:0;
+  right:0;
+  top:67%;
+  transform:translateY(-50%);
+  z-index:2;
+  overflow:hidden;
+  pointer-events:none;
+}
+
+.agent-track{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  width:max-content;
+  animation:scrollAgents 28s linear infinite;
+  padding:12px 0;
+}
+
+.agent-bubble{
+  width:84px;
+  height:84px;
+  flex:0 0 auto;
+  border-radius:50%;
+  overflow:hidden;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:0 10px 30px rgba(0,0,0,.30);
+}
+
+.agent-bubble img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+@keyframes scrollAgents{
+  from{ transform:translateX(0); }
+  to{ transform:translateX(-50%); }
+}
+
 /* ===== PHRASE AJOUTÉE ===== */
 .hero-tagline{
   position:absolute;
@@ -267,6 +311,24 @@ footer{
 
   <div class="hero-logo">
     <img src="images/logopc.png">
+  </div>
+
+  <div class="agent-slider">
+    <div class="agent-track">
+      <div class="agent-bubble"><img src="images/chloe-bulle.png" alt="Chloé"></div>
+      <div class="agent-bubble"><img src="images/lucas-bulle.png" alt="Lucas"></div>
+      <div class="agent-bubble"><img src="images/teo-bulle.png" alt="Téo"></div>
+      <div class="agent-bubble"><img src="images/max-bulle.png" alt="Max"></div>
+      <div class="agent-bubble"><img src="images/rose-bulle.png" alt="Rose"></div>
+      <div class="agent-bubble"><img src="images/emma-bulle.png" alt="Emma"></div>
+
+      <div class="agent-bubble"><img src="images/chloe-bulle.png" alt="Chloé"></div>
+      <div class="agent-bubble"><img src="images/lucas-bulle.png" alt="Lucas"></div>
+      <div class="agent-bubble"><img src="images/teo-bulle.png" alt="Téo"></div>
+      <div class="agent-bubble"><img src="images/max-bulle.png" alt="Max"></div>
+      <div class="agent-bubble"><img src="images/rose-bulle.png" alt="Rose"></div>
+      <div class="agent-bubble"><img src="images/emma-bulle.png" alt="Emma"></div>
+    </div>
   </div>
 
   <div class="hero-content">
